@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spring Cron Expression Validator</title>
+    <link rel="stylesheet" href="../shared/theme.css">
     <style>
         * {
             margin: 0;
@@ -12,29 +13,29 @@
         }
 
         body {
-            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-            background: #0d1117;
+            font-family: var(--font-mono);
+            background: var(--bg-secondary);
             min-height: 100vh;
             padding: 20px;
-            color: #c9d1d9;
+            color: var(--text-primary);
         }
 
         .container {
             max-width: 900px;
             margin: 0 auto;
-            background: #161b22;
+            background: var(--bg-primary);
             border-radius: 12px;
-            border: 1px solid #30363d;
-            box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-primary);
+            box-shadow: var(--shadow-lg);
             overflow: hidden;
         }
 
         .header {
-            background: #0d1117;
-            color: #58a6ff;
+            background: var(--bg-secondary);
+            color: var(--accent-primary);
             padding: 30px;
             text-align: center;
-            border-bottom: 2px solid #30363d;
+            border-bottom: 2px solid var(--border-primary);
         }
 
         .header h1 {
@@ -1033,5 +1034,6 @@
         updateUI();
         updateFieldHighlight();
     </script>
+    <script src="../shared/theme-toggle.js"></script>
 </body>
 </html>
