@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spring Cron Expression Validator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            background: #0d1117;
+            min-height: 100vh;
+            padding: 20px;
+            color: #c9d1d9;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #161b22;
+            border-radius: 12px;
+            border: 1px solid #30363d;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+
+        .header {
+            background: #0d1117;
+            color: #58a6ff;
+            padding: 30px;
+            text-align: center;
+            border-bottom: 2px solid #30363d;
+        }
+
+        .header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+            font-weight: 700;
+            text-shadow: 0 0 20px rgba(88, 166, 255, 0.3);
+        }
+
+        .header p {
+            opacity: 0.8;
+            font-size: 1.1em;
+            color: #8b949e;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #58a6ff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .presets {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .preset-btn {
+            background: #21262d;
+            border: 1px solid #30363d;
+            color: #8b949e;
+            padding: 10px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.9em;
+            font-weight: 500;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+        }
+
+        .preset-btn:hover {
+            background: #30363d;
+            color: #58a6ff;
+            border-color: #58a6ff;
+            box-shadow: 0 0 10px rgba(88, 166, 255, 0.2);
+        }
+
+        .cron-input-container {
+            margin-bottom: 20px;
+        }
+
+        .cron-input {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2em;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            background: #0d1117;
+            color: #c9d1d9;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .cron-input:focus {
+            outline: none;
+            border-color: #58a6ff;
+            box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.1);
+        }
+
+        .cron-input.valid {
+            border-color: #3fb950;
+            box-shadow: 0 0 10px rgba(63, 185, 80, 0.2);
+        }
+
+        .cron-input.invalid {
+            border-color: #f85149;
+            box-shadow: 0 0 10px rgba(248, 81, 73, 0.2);
+        }
+
+        .description {
+            padding: 15px;
+            background: #21262d;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-size: 1.05em;
+            color: #8b949e;
+        }
+
+        .description.error {
+            background: #1a0f0f;
+            border-color: #f85149;
+            color: #f85149;
+        }
+
+        .context-help {
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 15px;
+        }
+
+        .field-indicator {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .indicator-label {
+            font-size: 0.9em;
+            color: #58a6ff;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .field-chip {
+            padding: 8px 14px;
+            background: #21262d;
+            border: 1px solid #30363d;
+            color: #8b949e;
+            border-radius: 6px;
+            font-size: 0.85em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            user-select: none;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+        }
+
+        .field-chip:hover {
+            border-color: #58a6ff;
+            background: #30363d;
+            color: #58a6ff;
+        }
+
+        .field-chip.active {
+            background: #1f6feb;
+            color: #ffffff;
+            border-color: #58a6ff;
+            font-weight: 600;
+            box-shadow: 0 0 15px rgba(88, 166, 255, 0.3);
+        }
+
+        .pattern-table {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .pattern-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .pattern-table th {
+            background: #21262d;
+            color: #58a6ff;
+            padding: 12px;
+            text-align: left;
+            font-size: 0.9em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid #30363d;
+        }
+
+        .pattern-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #30363d;
+            font-size: 0.85em;
+            color: #8b949e;
+        }
+
+        .pattern-table td:first-child {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-weight: 600;
+            color: #3fb950;
+            white-space: nowrap;
+        }
+
+        .pattern-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .pattern-table tr:hover {
+            background: #21262d;
+        }
+
+        .field-tip {
+            background: #1c1813;
+            border: 1px solid #d29922;
+            border-radius: 8px;
+            padding: 12px 15px;
+            margin-top: 12px;
+            font-size: 0.85em;
+            line-height: 1.5;
+            color: #d29922;
+        }
+
+        .field-tip strong {
+            color: #ffd700;
+        }
+
+        .schedule-preview {
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .schedule-item {
+            padding: 12px;
+            background: #161b22;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            border-left: 3px solid #58a6ff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.2s;
+        }
+
+        .schedule-item:hover {
+            background: #21262d;
+            border-left-color: #3fb950;
+        }
+
+        .schedule-item-number {
+            background: #1f6feb;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85em;
+            font-weight: 600;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+        }
+
+        .schedule-item-time {
+            flex: 1;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.95em;
+            color: #c9d1d9;
+        }
+
+
+        .loading {
+            text-align: center;
+            color: #8b949e;
+            padding: 20px;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.5em;
+            }
+
+            .field-indicator {
+                justify-content: center;
+            }
+
+            .presets {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⏰ Spring Cron Expression Validator</h1>
+            <p>Create and validate Spring-style cron expressions with ease</p>
+        </div>
+
+        <div class="content">
+            <!-- Presets Section -->
+            <div class="section">
+                <div class="section-title">⚡ Quick Presets</div>
+                <div class="presets">
+                    <button class="preset-btn" data-cron="* * * * * *">Every Second</button>
+                    <button class="preset-btn" data-cron="0 * * * * *">Every Minute</button>
+                    <button class="preset-btn" data-cron="0 0 * * * *">Every Hour</button>
+                    <button class="preset-btn" data-cron="0 0 9 * * *">Daily at 9 AM</button>
+                    <button class="preset-btn" data-cron="0 0 9 * * MON-FRI">Weekdays at 9 AM</button>
+                    <button class="preset-btn" data-cron="0 30 8 * * MON-FRI">Weekdays at 8:30 AM</button>
+                    <button class="preset-btn" data-cron="0 0 0 1 * *">First of Month</button>
+                    <button class="preset-btn" data-cron="0 0 0 L * *">Last of Month</button>
+                    <button class="preset-btn" data-cron="0 0 12 * * FRI">Every Friday Noon</button>
+                </div>
+            </div>
+
+            <!-- Cron Expression Input -->
+            <div class="section">
+                <div class="section-title">✏️ Cron Expression</div>
+                <div class="cron-input-container">
+                    <input type="text" id="cronInput" class="cron-input" placeholder="0 0 9 * * MON-FRI" value="0 0 9 * * MON-FRI">
+                    <div id="description" class="description"></div>
+                </div>
+                <!-- Context-Aware Help Panel -->
+                <div class="context-help">
+                    <div class="field-indicator">
+                        <span class="indicator-label">Currently editing:</span>
+                        <span class="field-chip" data-field="0">seconds</span>
+                        <span class="field-chip" data-field="1">minutes</span>
+                        <span class="field-chip" data-field="2">hours</span>
+                        <span class="field-chip" data-field="3">day-of-month</span>
+                        <span class="field-chip" data-field="4">month</span>
+                        <span class="field-chip" data-field="5">day-of-week</span>
+                    </div>
+                    <div id="patternTable" class="pattern-table">
+                        <!-- Pattern table will be inserted here dynamically -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Schedule Preview -->
+            <div class="section">
+                <div class="section-title">📅 Next 5 Executions</div>
+                <div id="schedulePreview" class="schedule-preview">
+                    <div class="loading">Enter a valid cron expression to see next executions...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Spring Cron Parser and Validator
+        class SpringCronParser {
+            constructor() {
+                this.monthNames = {
+                    'JAN': 1, 'FEB': 2, 'MAR': 3, 'APR': 4, 'MAY': 5, 'JUN': 6,
+                    'JUL': 7, 'AUG': 8, 'SEP': 9, 'OCT': 10, 'NOV': 11, 'DEC': 12
+                };
+                this.dayNames = {
+                    'SUN': 1, 'MON': 2, 'TUE': 3, 'WED': 4, 'THU': 5, 'FRI': 6, 'SAT': 7
+                };
+                this.dayNumberToName = {
+                    1: 'Sunday', 2: 'Monday', 3: 'Tuesday', 4: 'Wednesday',
+                    5: 'Thursday', 6: 'Friday', 7: 'Saturday'
+                };
+                this.dayShortToFull = {
+                    'SUN': 'Sunday', 'MON': 'Monday', 'TUE': 'Tuesday', 'WED': 'Wednesday',
+                    'THU': 'Thursday', 'FRI': 'Friday', 'SAT': 'Saturday'
+                };
+                this.monthShortToFull = {
+                    'JAN': 'January', 'FEB': 'February', 'MAR': 'March', 'APR': 'April',
+                    'MAY': 'May', 'JUN': 'June', 'JUL': 'July', 'AUG': 'August',
+                    'SEP': 'September', 'OCT': 'October', 'NOV': 'November', 'DEC': 'December'
+                };
+            }
+
+            getDayName(dayValue) {
+                // Convert numeric day or short name to full name
+                const num = parseInt(dayValue);
+                if (!isNaN(num)) {
+                    return this.dayNumberToName[num] || dayValue;
+                }
+                return this.dayShortToFull[dayValue.toUpperCase()] || dayValue;
+            }
+
+            getMonthName(monthValue) {
+                // Convert short month name to full name
+                return this.monthShortToFull[monthValue.toUpperCase()] || monthValue;
+            }
+
+            convertDayRange(range) {
+                // Convert day range like "MON-FRI" to "Monday to Friday"
+                if (range.includes('-')) {
+                    const [start, end] = range.split('-');
+                    return `${this.getDayName(start)} to ${this.getDayName(end)}`;
+                }
+                return range;
+            }
+
+            parse(cronExpression) {
+                const parts = cronExpression.trim().split(/\s+/);
+
+                if (parts.length !== 6) {
+                    throw new Error('Spring cron expression must have 6 fields: second minute hour day-of-month month day-of-week');
+                }
+
+                const parsed = {
+                    second: parts[0],
+                    minute: parts[1],
+                    hour: parts[2],
+                    dayOfMonth: parts[3],
+                    month: parts[4],
+                    dayOfWeek: parts[5]
+                };
+
+                // Validate day-of-month and day-of-week: one must be ?
+                const hasDayOfMonth = parsed.dayOfMonth !== '?' && parsed.dayOfMonth !== '*';
+                const hasDayOfWeek = parsed.dayOfWeek !== '?' && parsed.dayOfWeek !== '*';
+
+                if (hasDayOfMonth && hasDayOfWeek) {
+                    throw new Error('Cannot specify both day-of-month and day-of-week. Use ? for one of them.');
+                }
+
+                return parsed;
+            }
+
+            describe(cronExpression) {
+                try {
+                    const parts = this.parse(cronExpression);
+                    let description = [];
+
+                    // Seconds
+                    if (parts.second === '*') {
+                        description.push('every second');
+                    } else if (parts.second === '0') {
+                        // Start of minute - don't mention
+                    } else if (parts.second.includes('/')) {
+                        const [start, interval] = parts.second.split('/');
+                        description.push(`every ${interval} seconds`);
+                    } else {
+                        description.push(`at second ${parts.second}`);
+                    }
+
+                    // Minutes
+                    if (parts.minute === '*') {
+                        description.push('every minute');
+                    } else if (parts.minute === '0' && parts.hour !== '*') {
+                        // Start of hour - will be described with hour
+                    } else if (parts.minute.includes('/')) {
+                        const [start, interval] = parts.minute.split('/');
+                        description.push(`every ${interval} minutes`);
+                    } else if (parts.minute !== '0') {
+                        description.push(`at minute ${parts.minute}`);
+                    }
+
+                    // Hours
+                    if (parts.hour === '*') {
+                        description.push('every hour');
+                    } else if (parts.hour.includes('/')) {
+                        const [start, interval] = parts.hour.split('/');
+                        description.push(`every ${interval} hours`);
+                    } else {
+                        const hour = parseInt(parts.hour);
+                        const minute = parts.minute === '0' ? '' : `:${parts.minute.padStart(2, '0')}`;
+                        const period = hour >= 12 ? 'PM' : 'AM';
+                        const displayHour = hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
+                        description.push(`at ${displayHour}${minute} ${period}`);
+                    }
+
+                    // Day of week
+                    if (parts.dayOfWeek !== '*' && parts.dayOfWeek !== '?') {
+                        if (parts.dayOfWeek === 'MON-FRI') {
+                            description.push('on weekdays');
+                        } else if (parts.dayOfWeek.includes('#')) {
+                            // Handle nth occurrence (e.g., FRI#1, MON#2)
+                            const [day, occurrence] = parts.dayOfWeek.split('#');
+                            const ordinal = ['', '1st', '2nd', '3rd', '4th', '5th'][parseInt(occurrence)] || `${occurrence}th`;
+                            const dayName = this.getDayName(day);
+                            description.push(`on the ${ordinal} ${dayName} of the month`);
+                        } else if (parts.dayOfWeek.includes('L')) {
+                            // Handle last occurrence (e.g., FRIL, 6L)
+                            const day = parts.dayOfWeek.replace('L', '');
+                            const dayName = day ? this.getDayName(day) : 'day';
+                            description.push(`on the last ${dayName} of the month`);
+                        } else if (parts.dayOfWeek.includes('-')) {
+                            const converted = this.convertDayRange(parts.dayOfWeek);
+                            description.push(`from ${converted}`);
+                        } else {
+                            const dayName = this.getDayName(parts.dayOfWeek);
+                            description.push(`on ${dayName}`);
+                        }
+                    }
+
+                    // Day of month
+                    if (parts.dayOfMonth !== '*' && parts.dayOfMonth !== '?') {
+                        if (parts.dayOfMonth === 'L') {
+                            description.push('on the last day of the month');
+                        } else if (parts.dayOfMonth === '1') {
+                            description.push('on the 1st of the month');
+                        } else {
+                            description.push(`on day ${parts.dayOfMonth} of the month`);
+                        }
+                    }
+
+                    // Month
+                    if (parts.month !== '*') {
+                        const monthName = this.getMonthName(parts.month);
+                        description.push(`in ${monthName}`);
+                    }
+
+                    // Capitalize first letter
+                    let result = description.join(' ');
+                    return result.charAt(0).toUpperCase() + result.slice(1);
+                } catch (e) {
+                    return e.message;
+                }
+            }
+
+            getNextExecutions(cronExpression, count = 10) {
+                try {
+                    const parts = this.parse(cronExpression);
+                    const executions = [];
+                    let currentDate = new Date();
+                    currentDate.setMilliseconds(0);
+                    currentDate.setSeconds(currentDate.getSeconds() + 1); // Start from next second
+
+                    let attempts = 0;
+                    const maxAttempts = 1000; // Much lower limit since we're smarter now
+
+                    while (executions.length < count && attempts < maxAttempts) {
+                        attempts++;
+
+                        const nextDate = this.findNextExecution(parts, currentDate);
+                        if (!nextDate) {
+                            break; // No more executions found
+                        }
+
+                        executions.push(new Date(nextDate));
+                        // Move to next second after this execution
+                        currentDate = new Date(nextDate.getTime() + 1000);
+                    }
+
+                    return executions;
+                } catch (e) {
+                    return [];
+                }
+            }
+
+            findNextExecution(parts, fromDate) {
+                // Try to find next valid execution time starting from fromDate
+                // Limit search to 2 years ahead to avoid infinite loops
+                const maxDate = new Date(fromDate);
+                maxDate.setFullYear(maxDate.getFullYear() + 2);
+
+                let date = new Date(fromDate);
+
+                // Try up to 1000 days (about 3 years worth of days)
+                for (let dayAttempt = 0; dayAttempt < 1000; dayAttempt++) {
+                    if (date > maxDate) return null;
+
+                    // Check if month matches
+                    if (!this.matchesField(parts.month, date.getMonth() + 1, 1, 12, this.monthNames)) {
+                        // Jump to first day of next valid month
+                        date.setMonth(date.getMonth() + 1);
+                        date.setDate(1);
+                        date.setHours(0, 0, 0, 0);
+                        continue;
+                    }
+
+                    // Check day constraints
+                    const dayOfMonthMatch = parts.dayOfMonth === '?' || this.matchesDayOfMonth(parts.dayOfMonth, date);
+                    const dayOfWeekMatch = parts.dayOfWeek === '?' || this.matchesDayOfWeek(parts.dayOfWeek, date);
+
+                    let dayMatches = false;
+                    if (parts.dayOfMonth === '?' && parts.dayOfWeek === '?') {
+                        dayMatches = true;
+                    } else if (parts.dayOfMonth === '?') {
+                        dayMatches = dayOfWeekMatch;
+                    } else if (parts.dayOfWeek === '?') {
+                        dayMatches = dayOfMonthMatch;
+                    } else {
+                        dayMatches = dayOfMonthMatch && dayOfWeekMatch;
+                    }
+
+                    if (!dayMatches) {
+                        // Try next day
+                        date.setDate(date.getDate() + 1);
+                        date.setHours(0, 0, 0, 0);
+                        continue;
+                    }
+
+                    // Day matches, now find valid hour
+                    for (let hour = date.getHours(); hour < 24; hour++) {
+                        if (!this.matchesField(parts.hour, hour, 0, 23)) {
+                            continue;
+                        }
+
+                        // Hour matches, find valid minute
+                        const startMinute = (hour === date.getHours()) ? date.getMinutes() : 0;
+                        for (let minute = startMinute; minute < 60; minute++) {
+                            if (!this.matchesField(parts.minute, minute, 0, 59)) {
+                                continue;
+                            }
+
+                            // Minute matches, find valid second
+                            const startSecond = (hour === date.getHours() && minute === date.getMinutes()) ? date.getSeconds() : 0;
+                            for (let second = startSecond; second < 60; second++) {
+                                if (this.matchesField(parts.second, second, 0, 59)) {
+                                    // Found a match!
+                                    return new Date(date.getFullYear(), date.getMonth(), date.getDate(), hour, minute, second);
+                                }
+                            }
+                        }
+                    }
+
+                    // No match found today, try next day
+                    date.setDate(date.getDate() + 1);
+                    date.setHours(0, 0, 0, 0);
+                }
+
+                return null; // No execution found within search limit
+            }
+
+            matches(parts, date) {
+                // Check second
+                if (!this.matchesField(parts.second, date.getSeconds(), 0, 59)) {
+                    return false;
+                }
+
+                // Check minute
+                if (!this.matchesField(parts.minute, date.getMinutes(), 0, 59)) {
+                    return false;
+                }
+
+                // Check hour
+                if (!this.matchesField(parts.hour, date.getHours(), 0, 23)) {
+                    return false;
+                }
+
+                // Check month
+                if (!this.matchesField(parts.month, date.getMonth() + 1, 1, 12, this.monthNames)) {
+                    return false;
+                }
+
+                // Check day of month and day of week (one of them can be ?)
+                const dayOfMonthMatch = parts.dayOfMonth === '?' || this.matchesDayOfMonth(parts.dayOfMonth, date);
+                const dayOfWeekMatch = parts.dayOfWeek === '?' || this.matchesDayOfWeek(parts.dayOfWeek, date);
+
+                if (parts.dayOfMonth === '?' && parts.dayOfWeek === '?') {
+                    return true;
+                } else if (parts.dayOfMonth === '?') {
+                    return dayOfWeekMatch;
+                } else if (parts.dayOfWeek === '?') {
+                    return dayOfMonthMatch;
+                } else {
+                    return dayOfMonthMatch && dayOfWeekMatch;
+                }
+            }
+
+            matchesField(pattern, value, min, max, nameMap = null) {
+                if (pattern === '*' || pattern === '?') {
+                    return true;
+                }
+
+                // Handle name mappings
+                if (nameMap) {
+                    for (const [name, num] of Object.entries(nameMap)) {
+                        pattern = pattern.replace(new RegExp(name, 'gi'), num);
+                    }
+                }
+
+                // Handle lists (,)
+                if (pattern.includes(',')) {
+                    return pattern.split(',').some(p => this.matchesField(p.trim(), value, min, max));
+                }
+
+                // Handle ranges (-)
+                if (pattern.includes('-') && !pattern.includes('/')) {
+                    const [start, end] = pattern.split('-').map(Number);
+                    return value >= start && value <= end;
+                }
+
+                // Handle increments (/)
+                if (pattern.includes('/')) {
+                    const [range, step] = pattern.split('/');
+                    const stepNum = parseInt(step);
+
+                    if (range === '*') {
+                        return value % stepNum === 0;
+                    } else {
+                        const startNum = parseInt(range);
+                        return value >= startNum && (value - startNum) % stepNum === 0;
+                    }
+                }
+
+                // Handle exact match
+                return parseInt(pattern) === value;
+            }
+
+            matchesDayOfMonth(pattern, date) {
+                const day = date.getDate();
+
+                if (pattern === 'L') {
+                    // Last day of month
+                    const nextDay = new Date(date);
+                    nextDay.setDate(day + 1);
+                    return nextDay.getDate() === 1;
+                }
+
+                if (pattern.includes('W')) {
+                    // Nearest weekday - simplified
+                    return date.getDay() !== 0 && date.getDay() !== 6;
+                }
+
+                return this.matchesField(pattern, day, 1, 31);
+            }
+
+            matchesDayOfWeek(pattern, date) {
+                // JavaScript getDay() returns 0-6 (Sunday=0)
+                // Spring uses 1-7 (Sunday=1), so convert: JS day + 1 = Spring day
+                let dayOfWeek = date.getDay() + 1;
+
+                // Handle name mappings
+                for (const [name, num] of Object.entries(this.dayNames)) {
+                    pattern = pattern.replace(new RegExp(name, 'gi'), num.toString());
+                }
+
+                if (pattern.includes('L')) {
+                    // Last occurrence of day in month - simplified
+                    return true;
+                }
+
+                if (pattern.includes('#')) {
+                    // Nth occurrence of day in month - simplified
+                    return true;
+                }
+
+                return this.matchesField(pattern, dayOfWeek, 1, 7);
+            }
+        }
+
+        // Initialize parser
+        const parser = new SpringCronParser();
+
+        // DOM elements
+        const cronInput = document.getElementById('cronInput');
+        const description = document.getElementById('description');
+        const schedulePreview = document.getElementById('schedulePreview');
+        const patternTable = document.getElementById('patternTable');
+        const fieldChips = document.querySelectorAll('.field-chip');
+
+        // Pattern definitions for each field
+        const fieldPatterns = {
+            0: { // seconds
+                name: 'Seconds',
+                patterns: [
+                    ['*', 'Any value', 'Every second (0-59)'],
+                    ['N', 'Specific number', '0, 15, 30, 45 (single value 0-59)'],
+                    ['start-end', 'Range', '0-30 (seconds 0 through 30), 15-45'],
+                    [',', 'List (comma)', '0,15,30,45 (at seconds 0, 15, 30, and 45)'],
+                    ['*/step', 'Increment from 0', '*/5 (every 5 seconds: 0,5,10,15...), */10 (0,10,20,30...)'],
+                    ['start-end/step', 'Range + increment', '0-30/5 (every 5 sec from 0-30: 0,5,10,15,20,25,30)']
+                ]
+            },
+            1: { // minutes
+                name: 'Minutes',
+                patterns: [
+                    ['*', 'Any value', 'Every minute (0-59)'],
+                    ['N', 'Specific number', '0, 15, 30, 45 (single value 0-59)'],
+                    ['start-end', 'Range', '15-45 (minutes 15 through 45), 0-30'],
+                    [',', 'List (comma)', '0,15,30,45 (at minutes 0, 15, 30, and 45)'],
+                    ['*/step', 'Increment from 0', '*/5 (every 5 minutes: 0,5,10,15...), */15 (0,15,30,45)'],
+                    ['start-end/step', 'Range + increment', '15-45/5 (every 5 min from 15-45: 15,20,25,30,35,40,45)']
+                ]
+            },
+            2: { // hours
+                name: 'Hours',
+                patterns: [
+                    ['*', 'Any value', 'Every hour (0-23)'],
+                    ['N', 'Specific number', '0 (midnight), 9 (9 AM), 17 (5 PM) (single value 0-23)'],
+                    ['start-end', 'Range', '9-17 (9 AM through 5 PM), 0-6 (midnight-6 AM)'],
+                    [',', 'List (comma)', '9,12,15,18 (at 9 AM, noon, 3 PM, 6 PM)'],
+                    ['*/step', 'Increment from 0', '*/2 (every 2 hours: 0,2,4,6,8...), */4 (0,4,8,12...)'],
+                    ['start-end/step', 'Range + increment', '9-17/2 (every 2 hours from 9-5: 9,11,13,15,17)']
+                ]
+            },
+            3: { // day-of-month
+                name: 'Day of Month',
+                patterns: [
+                    ['*', 'Any value', 'Every day'],
+                    ['?', 'No specific value', 'REQUIRED when using day-of-week (cannot specify both)'],
+                    ['1-31', 'Specific day', '1 (1st), 15 (15th), 31 (31st)'],
+                    ['-', 'Range', '1-15 (days 1 through 15)'],
+                    [',', 'List', '1,15,30 (on the 1st, 15th, and 30th)'],
+                    ['/', 'Increment', '*/2 (every 2 days), 1-15/3 (every 3 days from 1st to 15th)'],
+                    ['L', 'Last day', 'L (last day of the month)'],
+                    ['LW', 'Last weekday', 'LW (last weekday of the month)'],
+                    ['15W', 'Nearest weekday', '15W (nearest weekday to the 15th)']
+                ]
+            },
+            4: { // month
+                name: 'Month',
+                patterns: [
+                    ['*', 'Any value', 'Every month'],
+                    ['1-12', 'Specific month', '1 (Jan), 6 (Jun), 12 (Dec)'],
+                    ['JAN-DEC', 'Month names', 'JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC'],
+                    ['-', 'Range', '1-6 (Jan through Jun), JAN-JUN'],
+                    [',', 'List', '1,4,7,10 (Jan, Apr, Jul, Oct) or JAN,APR,JUL,OCT'],
+                    ['/', 'Increment', '*/2 (every 2 months), 1-6/2 (every 2 months from Jan to Jun)']
+                ]
+            },
+            5: { // day-of-week
+                name: 'Day of Week',
+                patterns: [
+                    ['*', 'Any value', 'Every day'],
+                    ['?', 'No specific value', 'REQUIRED when using day-of-month (cannot specify both)'],
+                    ['1-7', 'Specific day', '1 (Sunday), 2 (Monday), 6 (Friday), 7 (Saturday)'],
+                    ['SUN-SAT', 'Day names', 'SUN, MON, TUE, WED, THU, FRI, SAT'],
+                    ['-', 'Range', '2-6 (Mon through Fri), MON-FRI (weekdays)'],
+                    [',', 'List', '2,4,6 (Mon, Wed, Fri) or MON,WED,FRI'],
+                    ['/', 'Increment', '*/2 (every 2 days), 2-6/2 (Mon, Wed, Fri)'],
+                    ['6L', 'Last occurrence', '6L (last Friday of the month)'],
+                    ['3#2', 'Nth occurrence', '3#2 (2nd Tuesday of the month)']
+                ]
+            }
+        };
+
+        let currentField = 0;
+
+        // Update UI based on cron expression
+        function updateUI() {
+            const cronExpression = cronInput.value.trim();
+
+            if (!cronExpression) {
+                cronInput.className = 'cron-input';
+                description.textContent = 'Enter a cron expression...';
+                description.className = 'description';
+                schedulePreview.innerHTML = '<div class="loading">Enter a valid cron expression to see next executions...</div>';
+                return;
+            }
+
+            try {
+                // Parse and validate
+                const parts = parser.parse(cronExpression);
+
+                // Update description
+                const desc = parser.describe(cronExpression);
+                description.textContent = desc;
+                description.className = 'description';
+                cronInput.className = 'cron-input valid';
+
+                // Get next executions
+                const executions = parser.getNextExecutions(cronExpression, 5);
+
+                if (executions.length === 0) {
+                    schedulePreview.innerHTML = '<div class="loading">No upcoming executions found in the near future...</div>';
+                } else {
+                    schedulePreview.innerHTML = executions.map((date, index) => {
+                        const options = {
+                            weekday: 'short',
+                            year: 'numeric',
+                            month: 'short',
+                            day: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            second: '2-digit'
+                        };
+                        return `
+                            <div class="schedule-item">
+                                <div class="schedule-item-number">${index + 1}</div>
+                                <div class="schedule-item-time">${date.toLocaleString('en-US', options)}</div>
+                            </div>
+                        `;
+                    }).join('');
+                }
+            } catch (e) {
+                cronInput.className = 'cron-input invalid';
+                description.textContent = '❌ ' + e.message;
+                description.className = 'description error';
+                schedulePreview.innerHTML = '<div class="loading">Fix the expression to see executions...</div>';
+            }
+        }
+
+        // Update pattern table based on selected field
+        function updatePatternTable(fieldIndex) {
+            const fieldData = fieldPatterns[fieldIndex];
+            if (!fieldData) return;
+
+            // Add helpful tips for specific fields
+            let tip = '';
+            if (fieldIndex === 4) { // month
+                tip = '<div class="field-tip">💡 <strong>Tip:</strong> Use month names (JAN, FEB, MAR...) instead of numbers for better clarity and readability.</div>';
+            } else if (fieldIndex === 5) { // day-of-week
+                tip = '<div class="field-tip">💡 <strong>Tip:</strong> Use day names (MON, TUE, WED...) instead of numbers for better clarity and readability.</div>';
+            }
+
+            const tableHTML = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Pattern</th>
+                            <th>Description</th>
+                            <th>Examples</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${fieldData.patterns.map(([pattern, desc, example]) => `
+                            <tr>
+                                <td>${pattern}</td>
+                                <td>${desc}</td>
+                                <td>${example}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+                ${tip}
+            `;
+
+            patternTable.innerHTML = tableHTML;
+        }
+
+        // Update field highlighting based on cursor position
+        function updateFieldHighlight() {
+            const cursorPos = cronInput.selectionStart;
+            const text = cronInput.value;
+
+            // Find which field the cursor is in by counting spaces before cursor
+            let fieldIndex = 0;
+            for (let i = 0; i < cursorPos; i++) {
+                if (text[i] === ' ') {
+                    fieldIndex++;
+                }
+            }
+
+            // Clamp to valid range (0-5)
+            fieldIndex = Math.min(Math.max(fieldIndex, 0), 5);
+            currentField = fieldIndex;
+
+            // Update chip highlighting
+            fieldChips.forEach((chip, index) => {
+                if (index === fieldIndex) {
+                    chip.classList.add('active');
+                } else {
+                    chip.classList.remove('active');
+                }
+            });
+
+            // Update pattern table
+            updatePatternTable(fieldIndex);
+        }
+
+        // Move cursor to specific field
+        function moveCursorToField(fieldIndex) {
+            const text = cronInput.value;
+            const parts = text.split(' ');
+
+            // Calculate position of the field
+            let position = 0;
+            for (let i = 0; i < fieldIndex && i < parts.length; i++) {
+                position += parts[i].length + 1; // +1 for space
+            }
+
+            cronInput.focus();
+            cronInput.setSelectionRange(position, position + (parts[fieldIndex]?.length || 0));
+            updateFieldHighlight();
+        }
+
+        // Event listeners
+        cronInput.addEventListener('input', () => {
+            updateUI();
+            updateFieldHighlight();
+        });
+
+        cronInput.addEventListener('click', updateFieldHighlight);
+        cronInput.addEventListener('keyup', updateFieldHighlight);
+        cronInput.addEventListener('focus', updateFieldHighlight);
+
+        // Field chip click handlers
+        fieldChips.forEach((chip, index) => {
+            chip.addEventListener('click', () => {
+                moveCursorToField(index);
+            });
+        });
+
+        // Preset buttons
+        document.querySelectorAll('.preset-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                cronInput.value = btn.dataset.cron;
+                updateUI();
+                updateFieldHighlight();
+            });
+        });
+
+        // Initial update
+        updateUI();
+        updateFieldHighlight();
+    </script>
+</body>
+</html>

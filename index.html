@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developer Tools</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            background: #0d1117;
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: #c9d1d9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid #30363d;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 15px;
+            color: #58a6ff;
+            text-shadow: 0 0 20px rgba(88, 166, 255, 0.3);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            color: #8b949e;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .tool-card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 30px;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            border-color: #58a6ff;
+            box-shadow: 0 0 30px rgba(88, 166, 255, 0.2);
+        }
+
+        .tool-icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        .tool-title {
+            font-size: 1.5em;
+            font-weight: 600;
+            color: #58a6ff;
+            margin-bottom: 15px;
+        }
+
+        .tool-description {
+            color: #8b949e;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .tool-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #58a6ff;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .tool-link:hover {
+            color: #3fb950;
+        }
+
+        .tool-link::after {
+            content: '→';
+            transition: transform 0.2s;
+        }
+
+        .tool-card:hover .tool-link::after {
+            transform: translateX(5px);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 80px;
+            padding-top: 30px;
+            border-top: 1px solid #30363d;
+            color: #8b949e;
+        }
+
+        footer a {
+            color: #58a6ff;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Developer Tools</h1>
+            <p>A collection of utilities for developers</p>
+        </div>
+
+        <div class="tools-grid">
+            <!-- Cron Expression Validator -->
+            <a href="./cron-expression-validator/" class="tool-card">
+                <div class="tool-icon">⏰</div>
+                <h2 class="tool-title">Spring Cron Expression Validator</h2>
+                <p class="tool-description">
+                    Create and validate Spring-style cron expressions with an intuitive visual builder.
+                    Features context-aware help, pattern examples, and real-time schedule preview.
+                </p>
+                <span class="tool-link">Open Tool</span>
+            </a>
+
+            <!-- Rotation Comparison Tool -->
+            <a href="./rotation-comparison-tool/" class="tool-card">
+                <div class="tool-icon">🔄</div>
+                <h2 class="tool-title">Rotation Comparison Tool</h2>
+                <p class="tool-description">
+                    Compare and analyze rotation schedules with visual representations and detailed breakdowns.
+                </p>
+                <span class="tool-link">Open Tool</span>
+            </a>
+        </div>
+
+        <footer>
+            <p>Built with ❤️ for developers | <a href="https://github.com" target="_blank">View on GitHub</a></p>
+        </footer>
+    </div>
+</body>
+</html>

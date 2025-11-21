@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .form-section {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .input-section {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+            width: 340px;
+            flex-shrink: 0;
+        }
+        
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .input-group input,
+        .input-group select {
+            padding: 10px 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            background-color: white;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: #007acc;
+            box-shadow: 0 0 0 3px rgba(0, 122, 204, 0.1);
+        }
+        
+        .input-group label {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 4px;
+        }
+        
+        .buttons-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        
+        .buttons-group .add-btn,
+        .buttons-group .common-btn {
+            padding: 10px 16px;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+            transition: background-color 0.2s ease;
+        }
+        
+        .buttons-group .add-btn {
+            background-color: #007acc;
+        }
+        
+        .buttons-group .add-btn:hover {
+            background-color: #005a9e;
+        }
+        
+        .buttons-group .common-btn {
+            background-color: #28a745;
+        }
+        
+        .buttons-group .common-btn:hover {
+            background-color: #218838;
+        }
+        
+        .main-content-layout {
+            display: grid;
+            grid-template-columns: minmax(300px, max-content) minmax(350px, max-content) minmax(300px, max-content);
+            gap: 20px;
+            align-items: start;
+            justify-items: start;
+            justify-content: start;
+        }
+        
+        .demo-section {
+            margin-left: 30px;
+        }
+        
+        .demo-section h3 {
+            text-align: center;
+        }
+        
+        /* Stack coordinate systems when they get too narrow */
+        @media (max-width: 1400px) {
+            .coordinate-systems-container {
+                flex-direction: column;
+            }
+            
+            .coordinate-system {
+                min-width: auto;
+            }
+        }
+        
+        
+        .form-row label {
+            min-width: 80px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .form-row input, .form-row select {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .form-row button {
+            padding: 8px 16px;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .add-btn { background-color: #007acc; }
+        .add-btn:hover { background-color: #005a9e; }
+        .common-btn { background-color: #28a745; }
+        .common-btn:hover { background-color: #218838; }
+        .remove-btn { background-color: #dc3545; }
+        .remove-btn:hover { background-color: #c82333; }
+        
+        .interactive-demo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-left: 20px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+        }
+        
+        .interactive-text-box {
+            width: 80px;
+            height: 30px;
+            background-color: #ffeb3b;
+            border: 2px solid #fbc02d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 12px;
+            transform-origin: center center;
+            cursor: grab;
+            user-select: none;
+        }
+        
+        .interactive-text-box:active {
+            cursor: grabbing;
+        }
+        
+        .interactive-info {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            font-size: 12px;
+        }
+        
+        .degree-display {
+            font-weight: bold;
+            color: #007acc;
+            font-size: 14px;
+        }
+        
+        .instruction-text {
+            color: #666;
+            font-style: italic;
+        }
+        
+        .examples-container {
+            margin-top: 20px;
+        }
+        
+        .example-item {
+            background-color: white;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .example-header {
+            background-color: #f8f9fa;
+            padding: 15px 20px 15px 50px;
+            border-bottom: 1px solid #dee2e6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .example-title {
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .header-remove-btn {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        
+        .header-remove-btn:hover {
+            background-color: #c82333;
+        }
+        
+        .container {
+            display: flex;
+            gap: 15px;
+            padding: 20px;
+        }
+        
+        .column {
+            flex: 1;
+            min-width: 120px;
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #dee2e6;
+        }
+        
+        /* Only wrap columns when screen gets narrow */
+        @media (max-width: 1400px) {
+            .container {
+                flex-wrap: wrap;
+            }
+            
+            .column {
+                min-width: 200px;
+            }
+        }
+        
+        .column h3 {
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: #333;
+            font-size: 14px;
+            border-bottom: 2px solid #007acc;
+            padding-bottom: 8px;
+        }
+        
+        .rotation-demo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10px 0;
+            padding: 8px;
+            background-color: white;
+            border-radius: 4px;
+            border: 1px solid #dee2e6;
+        }
+        
+        .text-box {
+            width: 80px;
+            height: 25px;
+            background-color: #ffeb3b;
+            border: 2px solid #fbc02d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 12px;
+            transform-origin: center center;
+        }
+        
+        .compass {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 12px;
+            color: #666;
+            font-style: italic;
+        }
+        
+        .explanation {
+            background-color: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #2196f3;
+        }
+        
+        .generate-btn {
+            background-color: #17a2b8;
+            color: white;
+            border: none;
+            padding: 3px 6px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 10px;
+            margin-top: 5px;
+            width: 100%;
+        }
+        
+        .generate-btn:hover {
+            background-color: #138496;
+        }
+        
+        .expression-output {
+            background-color: white;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .expression-header {
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+        
+        .expression-content {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 15px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            font-size: 12px;
+        }
+        
+        .copy-btn {
+            margin-top: 10px;
+            padding: 8px 16px;
+            background-color: #007acc;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .copy-btn:hover {
+            background-color: #005a9e;
+        }
+        
+        
+        .input-invalid {
+            border-color: #dc3545 !important;
+            box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.25);
+        }
+        
+        .input-valid {
+            border-color: #28a745 !important;
+            box-shadow: 0 0 0 2px rgba(40, 167, 69, 0.25);
+        }
+        
+        .validation-message {
+            font-size: 12px;
+            margin-top: 4px;
+            min-height: 16px;
+        }
+        
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+            position: relative;
+        }
+        
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin: -10px 0 0 -10px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #007acc;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .button-loading {
+            position: relative;
+            color: transparent;
+        }
+        
+        .button-loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 14px;
+            height: 14px;
+            margin: -7px 0 0 -7px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        
+        .angle-input-container {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .validation-error {
+            color: #dc3545;
+        }
+        
+        .validation-success {
+            color: #28a745;
+        }
+        
+        .required {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        
+        .collapsible-header {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 0;
+            color: #333;
+            border-bottom: 2px solid #007acc;
+            padding-bottom: 10px;
+        }
+        
+        .collapsible-header:hover {
+            color: #007acc;
+        }
+        
+        .collapse-icon {
+            font-size: 18px;
+            transition: transform 0.2s ease;
+        }
+        
+        .collapse-icon.collapsed {
+            transform: rotate(-90deg);
+        }
+        
+        .collapsible-content {
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .collapsible-content.collapsed {
+            max-height: 0;
+        }
+        
+        .collapsible-content.expanded {
+            max-height: 500px;
+        }
+        
+        /* Desktop responsive behavior */
+        @media (max-width: 900px) {
+            .container {
+                justify-content: center;
+            }
+            
+            .column {
+                min-width: 240px;
+                max-width: 300px;
+            }
+        }
+        
+        .batch-controls {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            border: 1px solid #dee2e6;
+            display: none;
+        }
+        
+        .batch-controls.visible {
+            display: block;
+        }
+        
+        .example-checkbox {
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            z-index: 10;
+        }
+        
+        .example-item {
+            position: relative;
+        }
+        
+        .example-item.selected {
+            border: 2px solid #007acc;
+            box-shadow: 0 0 8px rgba(0, 122, 204, 0.3);
+        }
+        
+        .select-all-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .batch-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .batch-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .batch-delete {
+            background-color: #dc3545;
+            color: white;
+        }
+        
+        .batch-delete:hover {
+            background-color: #c82333;
+        }
+        
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 12px 16px;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1000;
+            font-size: 14px;
+            font-weight: 500;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            max-width: 300px;
+        }
+        
+        .toast.show {
+            transform: translateX(0);
+        }
+        
+        .toast.success {
+            background-color: #d4edda;
+            color: #155724;
+            border-left: 4px solid #28a745;
+        }
+        
+        .toast.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #dc3545;
+        }
+        
+        .toast.info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border-left: 4px solid #17a2b8;
+        }
+        
+        .coordinate-explanation {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+        }
+        
+        .coordinate-explanation h3 {
+            margin-top: 0;
+            color: #333;
+            font-size: 16px;
+            border-bottom: 1px solid #dee2e6;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .coordinate-systems-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .coordinate-system {
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 20px;
+        }
+        
+        .coordinate-system h4 {
+            margin: 0 0 8px 0;
+            font-size: 14px;
+            color: #007acc;
+        }
+        
+        .coordinate-diagram {
+            display: flex;
+            justify-content: center;
+            margin: 10px 0;
+        }
+        
+        .system-description {
+            font-size: 12px;
+            color: #666;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center; color: #333;">Dynamic Rotation Comparison Tool 
+        <span style="font-size: 14px; color: #666; cursor: help;" title="Keyboard shortcuts:&#10;Enter: Add example (in input fields)&#10;Ctrl+A: Select all examples&#10;Ctrl+D: Delete selected&#10;Ctrl+E: Toggle expression info">⌨️</span>
+    </h1>
+    
+    <div class="explanation">
+        <strong>Compare rotation systems:</strong> Add angles and text to see how they appear across different coordinate systems (Bearing vs Theta) with various offsets.
+    </div>
+    
+    <div class="form-section">
+        <h2 class="collapsible-header" onclick="toggleExpressionConfig()">
+            Expression Information
+            <span class="collapse-icon collapsed" id="expressionCollapseIcon">▼</span>
+        </h2>
+        <div class="collapsible-content collapsed" id="expressionConfigContent">
+            <div class="form-row">
+                <label for="inputDataUnits">Input Units:</label>
+            <select id="inputDataUnits" onchange="toggleFromOffsetVisibility()">
+                <option value="bearing" selected>Bearing</option>
+                <option value="theta">Theta</option>
+            </select>
+            
+            
+        </div>
+        <div class="form-row" id="fromOffsetRow" style="display: none;">
+            <label for="fromOffsetInput">From Offset:</label>
+            <input type="number" id="fromOffsetInput" value="0" style="width: 80px;" step="1"> degrees
+            <div style="margin-left: 20px; margin-top: 5px;">
+                <span style="margin-right: 10px;">Common:</span>
+                <button type="button" onclick="setFromOffset(0)" class="common-btn" style="margin: 0 4px; padding: 6px 12px; font-size: 14px;">0°</button>
+                <button type="button" onclick="setFromOffset(90)" class="common-btn" style="margin: 0 4px; padding: 6px 12px; font-size: 14px;">90°</button>
+                <button type="button" onclick="setFromOffset(180)" class="common-btn" style="margin: 0 4px; padding: 6px 12px; font-size: 14px;">180°</button>
+                <button type="button" onclick="setFromOffset(270)" class="common-btn" style="margin: 0 4px; padding: 6px 12px; font-size: 14px;">270°</button>
+            </div>
+        </div>
+        <div class="form-row">
+            <label for="inputPathInput">Input Path:</label>
+            <input type="text" id="inputPathInput" placeholder="rotation_path" value="rotation_path" style="min-width: 200px;" onfocus="this.select()">
+            
+            <label for="outputPathInput">Output Path:</label>
+            <input type="text" id="outputPathInput" placeholder="rotation_path" value="rotation_path" style="min-width: 200px;" onfocus="this.select()">
+            </div>
+            
+            <div id="expressionOutput" style="display: none; margin-top: 20px;">
+                <div class="expression-header">Generated Expression:</div>
+                <div class="expression-content" id="expressionContent"></div>
+                <button class="copy-btn" onclick="copyExpression()">Copy to Clipboard</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="form-section">
+        <h2 style="margin-top: 0; color: #333; border-bottom: 2px solid #007acc; padding-bottom: 10px;">Add Rotation Angles</h2>
+        <div class="main-content-layout">
+            <div class="input-section">
+                <div class="input-group">
+                    <label for="sourceUnit">Test Input Units:</label>
+                    <select id="sourceUnit">
+                        <option value="bearing" selected>Bearing</option>
+                        <option value="theta">Theta</option>
+                    </select>
+                </div>
+                
+                <div class="input-group">
+                    <label for="angleInput">Angle:<span class="required">*</span></label>
+                    <div class="angle-input-container">
+                        <input type="number" id="angleInput" placeholder="110" min="0" max="360" value="110" onfocus="this.select()" oninput="validateAngle()" title="Press Enter to add example">
+                        <div id="angleValidation" class="validation-message"></div>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="textInput">Text:<span class="required">*</span></label>
+                    <input type="text" id="textInput" placeholder="BRW" value="BRW" maxlength="10" title="Press Enter to add example" onfocus="this.select()">
+                </div>
+                
+                <div class="buttons-group">
+                    <button class="add-btn" onclick="addExample()">Add Example</button>
+                    <button class="common-btn" onclick="addCommonValues()">Add Common Values</button>
+                </div>
+            </div>
+            
+            <div class="demo-section">
+                <h3 style="margin: 0 0 15px 0; color: #333;"><strong>Interactive Demo</strong></h3>
+                <div class="interactive-demo">
+                <div class="interactive-text-box" id="interactiveBox" onmousedown="startDrag(event)">
+                    BRW
+                </div>
+                <div class="interactive-info">
+                    <div class="degree-display" id="degreeDisplay">0° Bearing</div>
+                    <div class="degree-display" id="thetaDisplay" style="color: #28a745;">0° Theta</div>
+                    <div class="instruction-text">Click & drag to rotate</div>
+                    <button onclick="addCurrentRotation()" style="padding: 4px 8px; font-size: 11px; background-color: #007acc; color: white; border: none; border-radius: 3px; cursor: pointer;">Add This Angle</button>
+                </div>
+            </div>
+            </div>
+            
+            <div class="coordinate-explanation">
+                <h3>Coordinate Systems</h3>
+                
+                <div class="coordinate-systems-container">
+                    <div class="coordinate-system">
+                    <h4>Bearing System</h4>
+                    <div class="coordinate-diagram">
+                        <svg width="120" height="120" viewBox="0 0 120 120">
+                            <!-- Circle -->
+                            <circle cx="60" cy="60" r="45" fill="none" stroke="#ddd" stroke-width="1"/>
+                            
+                            <!-- Clockwise rotation arrows positioned on circle -->
+                            <!-- Triangle at NE (91.82, 28.18) rotated 45° -->
+                            <polygon points="96.82,28.18 91.82,23.18 91.82,33.18" fill="#28a745" transform="rotate(45 91.82 28.18)"/>
+                            <!-- Triangle at SE (91.82, 91.82) rotated 135° -->
+                            <polygon points="96.82,91.82 91.82,86.82 91.82,96.82" fill="#28a745" transform="rotate(135 91.82 91.82)"/>
+                            <!-- Triangle at SW (28.18, 91.82) rotated 225° -->
+                            <polygon points="33.18,91.82 28.18,86.82 28.18,96.82" fill="#28a745" transform="rotate(225 28.18 91.82)"/>
+                            <!-- Triangle at NW (28.18, 28.18) rotated 315° -->
+                            <polygon points="33.18,28.18 28.18,23.18 28.18,33.18" fill="#28a745" transform="rotate(315 28.18 28.18)"/>
+                            
+                            <!-- Cardinal directions -->
+                            <text x="60" y="12" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">N</text>
+                            <text x="108" y="65" text-anchor="start" font-size="11" fill="#333">E</text>
+                            <text x="60" y="115" text-anchor="middle" font-size="11" fill="#333">S</text>
+                            <text x="12" y="65" text-anchor="end" font-size="11" fill="#333">W</text>
+                            
+                            <!-- Degree labels (offset from coordinates) -->
+                            <text x="75" y="12" text-anchor="middle" font-size="9" fill="#007acc" font-weight="bold">0°</text>
+                            <text x="108" y="52" text-anchor="start" font-size="9" fill="#666">90°</text>
+                            <text x="45" y="115" text-anchor="middle" font-size="9" fill="#666">180°</text>
+                            <text x="12" y="52" text-anchor="end" font-size="9" fill="#666">270°</text>
+                            
+                            <!-- North reference arrow -->
+                            <line x1="60" y1="60" x2="60" y2="25" stroke="#007acc" stroke-width="2" marker-end="url(#arrowhead-blue-small)"/>
+                            
+                            <!-- Clockwise label -->
+                            <text x="60" y="85" text-anchor="middle" font-size="10" fill="#28a745" font-weight="bold">Clockwise</text>
+                            
+                            <!-- Arrow markers -->
+                            <defs>
+                                <marker id="arrowhead-blue-small" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto">
+                                    <polygon points="0 0, 6 2, 0 4" fill="#007acc"/>
+                                </marker>
+                            </defs>
+                        </svg>
+                    </div>
+                    <div class="system-description">
+                        Starts at North (0°), measures clockwise. Common in navigation and surveying.
+                    </div>
+                </div>
+                
+                <div class="coordinate-system">
+                    <h4>Theta System</h4>
+                    <div class="coordinate-diagram">
+                        <svg width="120" height="120" viewBox="0 0 120 120">
+                            <!-- Circle -->
+                            <circle cx="60" cy="60" r="45" fill="none" stroke="#ddd" stroke-width="1"/>
+                            
+                            <!-- Counter-clockwise rotation arrows positioned on circle -->
+                            <!-- Triangle at NE (91.82, 28.18) rotated 45° + 180° = 225° -->
+                            <polygon points="96.82,28.18 91.82,23.18 91.82,33.18" fill="#007acc" transform="rotate(225 91.82 28.18)"/>
+                            <!-- Triangle at SE (91.82, 91.82) rotated 135° + 180° = 315° -->
+                            <polygon points="96.82,91.82 91.82,86.82 91.82,96.82" fill="#007acc" transform="rotate(315 91.82 91.82)"/>
+                            <!-- Triangle at SW (28.18, 91.82) rotated 225° + 180° = 45° -->
+                            <polygon points="33.18,91.82 28.18,86.82 28.18,96.82" fill="#007acc" transform="rotate(45 28.18 91.82)"/>
+                            <!-- Triangle at NW (28.18, 28.18) rotated 315° + 180° = 135° -->
+                            <polygon points="33.18,28.18 28.18,23.18 28.18,33.18" fill="#007acc" transform="rotate(135 28.18 28.18)"/>
+                            
+                            <!-- Cardinal directions -->
+                            <text x="60" y="12" text-anchor="middle" font-size="11" fill="#333">N</text>
+                            <text x="108" y="65" text-anchor="start" font-size="11" fill="#333" font-weight="bold">E</text>
+                            <text x="60" y="115" text-anchor="middle" font-size="11" fill="#333">S</text>
+                            <text x="12" y="65" text-anchor="end" font-size="11" fill="#333">W</text>
+                            
+                            <!-- Degree labels (offset from coordinates) -->
+                            <text x="75" y="12" text-anchor="middle" font-size="9" fill="#666">90°</text>
+                            <text x="108" y="52" text-anchor="start" font-size="9" fill="#28a745" font-weight="bold">0°</text>
+                            <text x="45" y="115" text-anchor="middle" font-size="9" fill="#666">270°</text>
+                            <text x="12" y="52" text-anchor="end" font-size="9" fill="#666">180°</text>
+                            
+                            <!-- East reference arrow -->
+                            <line x1="60" y1="60" x2="95" y2="60" stroke="#28a745" stroke-width="2" marker-end="url(#arrowhead-green-small)"/>
+                            
+                            <!-- Counter-clockwise label -->
+                            <text x="60" y="85" text-anchor="middle" font-size="10" fill="#007acc" font-weight="bold">Counter-Clockwise</text>
+                            
+                            <!-- Arrow markers -->
+                            <defs>
+                                <marker id="arrowhead-green-small" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto">
+                                    <polygon points="0 0, 6 2, 0 4" fill="#28a745"/>
+                                </marker>
+                            </defs>
+                        </svg>
+                    </div>
+                    <div class="system-description">
+                        Starts at East (0°), measures counter-clockwise. Standard in mathematics and physics.
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div class="batch-controls" id="batchControls">
+        <div class="select-all-container">
+            <label>
+                <input type="checkbox" id="selectAllCheckbox" onchange="toggleSelectAll()"> Select All
+            </label>
+            <span id="selectedCount">0 selected</span>
+        </div>
+        <div class="batch-actions">
+            <button class="batch-btn batch-delete" onclick="deleteSelected()">Delete Selected</button>
+            <button class="batch-btn" onclick="clearSelection()" style="background-color: #6c757d; color: white;">Clear Selection</button>
+        </div>
+    </div>
+    
+    <div class="examples-container" id="examplesContainer">
+        <!-- Examples will be added here dynamically -->
+    </div>
+    
+
+    <script>
+        let exampleCounter = 0;
+        let isDragging = false;
+        let currentRotation = 0;
+        let startAngle = 0;
+        let initialRotation = 0;
+        
+        function convertBearingToTheta(bearingAngle) {
+            return (90 - bearingAngle + 360) % 360;
+        }
+        
+        function convertThetaToBearing(thetaAngle) {
+            return (90 - thetaAngle + 360) % 360;
+        }
+        
+        function formatDegreeWithNegative(angle) {
+            // Normalize angle to 0-360 range
+            const normalizedAngle = ((angle % 360) + 360) % 360;
+            
+            // Return both positive and negative representations where applicable
+            if (normalizedAngle === 0) {
+                return '0°';
+            } else if (normalizedAngle <= 180) {
+                // For angles 1-180°, show positive version
+                return `${normalizedAngle}°`;
+            } else {
+                // For angles 181-359°, show both positive and negative
+                const negativeEquivalent = normalizedAngle - 360;
+                return `${normalizedAngle}° (${negativeEquivalent}°)`;
+            }
+        }
+        
+        function getSourceUnit() {
+            return document.getElementById('sourceUnit').value;
+        }
+        
+        function getInputDataUnits() {
+            return document.getElementById('inputDataUnits').value;
+        }
+        
+        // Recent values storage
+        let recentAngles = JSON.parse(localStorage.getItem('recentAngles')) || [];
+        let recentTexts = JSON.parse(localStorage.getItem('recentTexts')) || [];
+        
+        function addToRecent(array, value, key, maxItems = 5) {
+            if (value && !array.includes(value)) {
+                array.unshift(value);
+                if (array.length > maxItems) {
+                    array.pop();
+                }
+                localStorage.setItem(key, JSON.stringify(array));
+            }
+        }
+        
+        function createDatalist(inputId, datalistId, values) {
+            let datalist = document.getElementById(datalistId);
+            if (!datalist) {
+                datalist = document.createElement('datalist');
+                datalist.id = datalistId;
+                document.body.appendChild(datalist);
+                document.getElementById(inputId).setAttribute('list', datalistId);
+            }
+            
+            datalist.innerHTML = '';
+            values.forEach(value => {
+                const option = document.createElement('option');
+                option.value = value;
+                datalist.appendChild(option);
+            });
+        }
+        
+        window.onload = function() {
+            updateInteractiveText();
+            validateAngle(); // Initial validation
+            
+            // Setup recent values
+            if (recentAngles.length > 0) {
+                createDatalist('angleInput', 'recentAngles', recentAngles);
+            }
+            if (recentTexts.length > 0) {
+                createDatalist('textInput', 'recentTexts', recentTexts);
+            }
+        };
+        
+        function startDrag(event) {
+            isDragging = true;
+            const box = document.getElementById('interactiveBox');
+            const rect = box.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            
+            startAngle = Math.atan2(event.clientY - centerY, event.clientX - centerX) * (180 / Math.PI);
+            initialRotation = currentRotation;
+            
+            document.addEventListener('mousemove', handleDrag);
+            document.addEventListener('mouseup', stopDrag);
+            event.preventDefault();
+        }
+        
+        function handleDrag(event) {
+            if (!isDragging) return;
+            
+            const box = document.getElementById('interactiveBox');
+            const rect = box.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            
+            const currentAngle = Math.atan2(event.clientY - centerY, event.clientX - centerX) * (180 / Math.PI);
+            const deltaAngle = currentAngle - startAngle;
+            
+            currentRotation = (initialRotation + deltaAngle + 360) % 360;
+            
+            const bearingAngle = Math.round(currentRotation);
+            const thetaAngle = Math.round(convertBearingToTheta(currentRotation));
+            
+            box.style.transform = `rotate(${currentRotation}deg)`;
+            document.getElementById('degreeDisplay').textContent = formatDegreeWithNegative(bearingAngle) + ' Bearing';
+            document.getElementById('thetaDisplay').textContent = formatDegreeWithNegative(thetaAngle) + ' Theta';
+        }
+        
+        function stopDrag() {
+            isDragging = false;
+            document.removeEventListener('mousemove', handleDrag);
+            document.removeEventListener('mouseup', stopDrag);
+        }
+        
+        function updateInteractiveText() {
+            const text = document.getElementById('textInput').value || 'BRW';
+            document.getElementById('interactiveBox').textContent = text;
+        }
+        
+        function addCurrentRotation() {
+            const text = document.getElementById('textInput').value || 'BRW';
+            const sourceUnit = getSourceUnit();
+            const inputDataUnits = getInputDataUnits();
+            const angle = Math.round(currentRotation);
+            addExampleWithValues(angle, text, sourceUnit, inputDataUnits);
+        }
+        
+        document.getElementById('textInput').addEventListener('input', updateInteractiveText);
+        
+        function addExample() {
+            const button = event ? event.target : document.querySelector('.add-btn');
+            button.classList.add('button-loading');
+            
+            setTimeout(() => {
+                const angle = document.getElementById('angleInput').value;
+                const text = document.getElementById('textInput').value || 'BRW';
+                const sourceUnit = getSourceUnit();
+                const inputDataUnits = getInputDataUnits();
+                
+                if (!angle || angle < 0 || angle > 360) {
+                    button.classList.remove('button-loading');
+                    showToast('Please enter a valid angle between 0 and 360', 'error');
+                    return;
+                }
+                
+                // Save to recent values
+                addToRecent(recentAngles, angle, 'recentAngles');
+                addToRecent(recentTexts, text, 'recentTexts');
+                createDatalist('angleInput', 'recentAngles', recentAngles);
+                createDatalist('textInput', 'recentTexts', recentTexts);
+                
+                addExampleWithValues(parseInt(angle), text, sourceUnit, inputDataUnits);
+                
+                document.getElementById('textInput').value = 'BRW';
+                updateInteractiveText();
+                button.classList.remove('button-loading');
+            }, 150);
+        }
+        
+        function addCommonValues() {
+            const button = event ? event.target : document.querySelector('.common-btn');
+            button.classList.add('button-loading');
+            
+            setTimeout(() => {
+                const text = document.getElementById('textInput').value || 'BRW';
+                const sourceUnit = getSourceUnit();
+                const inputDataUnits = getInputDataUnits();
+                const commonAngles = [45, 135, 225, 315];
+                
+                commonAngles.forEach((angle, index) => {
+                    setTimeout(() => {
+                        addExampleWithValues(angle, text, sourceUnit, inputDataUnits);
+                        if (index === commonAngles.length - 1) {
+                            button.classList.remove('button-loading');
+                        }
+                    }, index * 100);
+                });
+            }, 150);
+        }
+        
+        function removeAll() {
+            const container = document.getElementById('examplesContainer');
+            container.innerHTML = '';
+            exampleCounter = 0;
+            updateSelection(); // Update batch controls when all examples are removed
+        }
+        
+        function generateExpression(testSourceUnit, targetUnit, offset) {
+            const inputDataUnits = getInputDataUnits();
+            
+            // Use actual data units for fromUnits, always BearingDegrees for toUnits
+            const fromUnits = inputDataUnits === 'theta' ? 'ThetaDegrees' : 'BearingDegrees';
+            const toUnits = 'BearingDegrees';
+            
+            const inputPathValue = document.getElementById('inputPathInput').value || 'rotation_path';
+            const outputPathValue = document.getElementById('outputPathInput').value || 'rotation_path';
+            
+            // Get fromOffset value, only applicable when input units are theta
+            const fromOffsetValue = inputDataUnits === 'theta' ? 
+                (parseFloat(document.getElementById('fromOffsetInput').value) || 0) : 0;
+            
+            const convertDirectionExpr = {
+                "_expressionType": "convertDirection",
+                "fromValue": inputPathValue,
+                "fromUnits": fromUnits,
+                "toUnits": toUnits,
+                "toOffset": offset
+            };
+            
+            // Only add fromOffset if it's non-zero and units are theta
+            if (fromOffsetValue !== 0 && inputDataUnits === 'theta') {
+                convertDirectionExpr.fromOffset = fromOffsetValue;
+            }
+            
+            const expression = {
+                "description": "text Rotation",
+                "_expressionType": "setProperty",
+                "verbose": true,
+                "path": outputPathValue,
+                "value": convertDirectionExpr
+            };
+            
+            document.getElementById('expressionContent').textContent = JSON.stringify(expression, null, 4);
+            document.getElementById('expressionOutput').style.display = 'block';
+            
+            // Expand the Expression Information section if it's collapsed
+            const content = document.getElementById('expressionConfigContent');
+            const icon = document.getElementById('expressionCollapseIcon');
+            if (content.classList.contains('collapsed')) {
+                content.classList.remove('collapsed');
+                content.classList.add('expanded');
+                icon.classList.remove('collapsed');
+            }
+            
+            document.getElementById('expressionOutput').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function copyExpression() {
+            const content = document.getElementById('expressionContent').textContent;
+            navigator.clipboard.writeText(content).then(() => {
+                showToast('Expression copied to clipboard!', 'success');
+            }).catch(() => {
+                showToast('Failed to copy. Please select and copy manually.', 'error');
+            });
+        }
+        
+        function toggleFromOffsetVisibility() {
+            const inputUnits = document.getElementById('inputDataUnits').value;
+            const fromOffsetRow = document.getElementById('fromOffsetRow');
+            
+            if (inputUnits === 'theta') {
+                fromOffsetRow.style.display = 'block';
+            } else {
+                fromOffsetRow.style.display = 'none';
+            }
+        }
+        
+        function setFromOffset(value) {
+            document.getElementById('fromOffsetInput').value = value;
+        }
+        
+        function addExampleWithValues(angle, text, sourceUnit = 'bearing', inputDataUnits = 'bearing') {
+            exampleCounter++;
+            const container = document.getElementById('examplesContainer');
+            
+            let bearingAngle;
+            if (sourceUnit === 'theta') {
+                bearingAngle = convertThetaToBearing(angle);
+            } else {
+                bearingAngle = angle;
+            }
+            
+            const exampleDiv = document.createElement('div');
+            exampleDiv.className = 'example-item';
+            exampleDiv.id = `example-${exampleCounter}`;
+            
+            const offsets = [0, 45, 90, 135, 180, 225, 270, 315];
+            const columns = offsets.map(offset => {
+                const rotAngle = (bearingAngle + offset) % 360;
+                const thetaAngle = convertBearingToTheta(rotAngle);
+                return `
+                    <div class="column">
+                        <h3>${formatDegreeWithNegative(rotAngle)} Bearing</h3>
+                        <h3 style="color: #28a745; margin-top: 5px;">${formatDegreeWithNegative(thetaAngle)} Theta</h3>
+                        <div class="compass">${offset === 0 ? 'Raw input' : '+' + offset + '° offset'}</div>
+                        <div class="rotation-demo">
+                            <div class="text-box" style="transform: rotate(${rotAngle}deg);">${text}</div>
+                        </div>
+                        <button class="generate-btn" onclick="generateExpression('${sourceUnit}', 'bearing', ${offset})">Generate Expression</button>
+                    </div>
+                `;
+            }).join('');
+            
+            exampleDiv.innerHTML = `
+                <input type="checkbox" class="example-checkbox" id="checkbox-${exampleCounter}" onchange="updateSelection()">
+                <div class="example-header">
+                    <div class="example-title">${formatDegreeWithNegative(angle)} ${sourceUnit} test input | Input data: ${inputDataUnits} - "${text}"</div>
+                    <button class="header-remove-btn" onclick="removeExample('example-${exampleCounter}')">Remove</button>
+                </div>
+                <div class="container">
+                    ${columns}
+                </div>
+            `;
+            
+            container.appendChild(exampleDiv);
+            updateSelection(); // Update batch controls when new example is added
+        }
+        
+        function removeExample(exampleId) {
+            const element = document.getElementById(exampleId);
+            if (element) {
+                element.remove();
+                updateSelection(); // Update batch controls when example is removed
+            }
+        }
+        
+        
+        function validateAngle() {
+            const angleInput = document.getElementById('angleInput');
+            const validationDiv = document.getElementById('angleValidation');
+            const addButton = document.querySelector('.add-btn');
+            const value = angleInput.value;
+            
+            // Clear previous validation classes
+            angleInput.classList.remove('input-valid', 'input-invalid');
+            validationDiv.classList.remove('validation-error', 'validation-success');
+            
+            if (value === '') {
+                validationDiv.textContent = '';
+                addButton.disabled = true;
+                addButton.style.opacity = '0.5';
+                return;
+            }
+            
+            const angle = parseFloat(value);
+            
+            if (isNaN(angle) || angle < 0 || angle > 360) {
+                angleInput.classList.add('input-invalid');
+                validationDiv.classList.add('validation-error');
+                validationDiv.textContent = 'Angle must be between 0 and 360';
+                addButton.disabled = true;
+                addButton.style.opacity = '0.5';
+            } else {
+                angleInput.classList.add('input-valid');
+                validationDiv.classList.add('validation-success');
+                validationDiv.textContent = '✓ Valid angle';
+                addButton.disabled = false;
+                addButton.style.opacity = '1';
+            }
+        }
+        
+        function toggleExpressionConfig() {
+            const content = document.getElementById('expressionConfigContent');
+            const icon = document.getElementById('expressionCollapseIcon');
+            
+            if (content.classList.contains('expanded')) {
+                content.classList.remove('expanded');
+                content.classList.add('collapsed');
+                icon.classList.add('collapsed');
+            } else {
+                content.classList.remove('collapsed');
+                content.classList.add('expanded');
+                icon.classList.remove('collapsed');
+            }
+        }
+        
+        function updateSelection() {
+            const checkboxes = document.querySelectorAll('.example-checkbox');
+            const selectedCount = Array.from(checkboxes).filter(cb => cb.checked).length;
+            const totalCount = checkboxes.length;
+            
+            // Update selected count display
+            document.getElementById('selectedCount').textContent = `${selectedCount} selected`;
+            
+            // Update select all checkbox state
+            const selectAllCheckbox = document.getElementById('selectAllCheckbox');
+            if (selectedCount === 0) {
+                selectAllCheckbox.checked = false;
+                selectAllCheckbox.indeterminate = false;
+            } else if (selectedCount === totalCount) {
+                selectAllCheckbox.checked = true;
+                selectAllCheckbox.indeterminate = false;
+            } else {
+                selectAllCheckbox.checked = false;
+                selectAllCheckbox.indeterminate = true;
+            }
+            
+            // Show/hide batch controls
+            const batchControls = document.getElementById('batchControls');
+            if (totalCount > 0) {
+                batchControls.classList.add('visible');
+            } else {
+                batchControls.classList.remove('visible');
+            }
+            
+            // Update visual selection on examples
+            checkboxes.forEach(checkbox => {
+                const exampleItem = checkbox.closest('.example-item');
+                if (checkbox.checked) {
+                    exampleItem.classList.add('selected');
+                } else {
+                    exampleItem.classList.remove('selected');
+                }
+            });
+        }
+        
+        function toggleSelectAll() {
+            const selectAllCheckbox = document.getElementById('selectAllCheckbox');
+            const checkboxes = document.querySelectorAll('.example-checkbox');
+            
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = selectAllCheckbox.checked;
+            });
+            
+            updateSelection();
+        }
+        
+        function deleteSelected() {
+            const selectedCheckboxes = document.querySelectorAll('.example-checkbox:checked');
+            
+            if (selectedCheckboxes.length === 0) {
+                showToast('No examples selected for deletion.', 'info');
+                return;
+            }
+            
+            // Show confirmation toast and proceed after a moment
+            showToast(`Deleting ${selectedCheckboxes.length} selected example(s)...`, 'info');
+            
+            setTimeout(() => {
+                const button = document.querySelector('.batch-delete');
+                button.classList.add('button-loading');
+                
+                selectedCheckboxes.forEach((checkbox, index) => {
+                    setTimeout(() => {
+                        const exampleItem = checkbox.closest('.example-item');
+                        exampleItem.style.transition = 'opacity 0.3s ease';
+                        exampleItem.style.opacity = '0';
+                        setTimeout(() => {
+                            exampleItem.remove();
+                            if (index === selectedCheckboxes.length - 1) {
+                                button.classList.remove('button-loading');
+                                updateSelection();
+                                showToast(`Deleted ${selectedCheckboxes.length} example(s)`, 'success');
+                            }
+                        }, 300);
+                    }, index * 50);
+                });
+            }, 500);
+        }
+        
+        function clearSelection() {
+            const checkboxes = document.querySelectorAll('.example-checkbox');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = false;
+            });
+            updateSelection();
+        }
+        
+        function showToast(message, type = 'info') {
+            // Remove existing toast if any
+            const existingToast = document.querySelector('.toast');
+            if (existingToast) {
+                existingToast.remove();
+            }
+            
+            // Create new toast
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            
+            document.body.appendChild(toast);
+            
+            // Trigger show animation
+            setTimeout(() => {
+                toast.classList.add('show');
+            }, 10);
+            
+            // Auto remove after 3 seconds
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => {
+                    if (toast.parentNode) {
+                        toast.remove();
+                    }
+                }, 300);
+            }, 3000);
+        }
+        
+        document.addEventListener('keydown', function(e) {
+            // Enter key in angle or text inputs
+            if (e.key === 'Enter' && (e.target.id === 'angleInput' || e.target.id === 'textInput')) {
+                addExample();
+                return;
+            }
+            
+            // Don't trigger shortcuts if user is typing in an input
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT' || e.target.tagName === 'TEXTAREA') {
+                return;
+            }
+            
+            // Keyboard shortcuts (only when not in input fields)
+            if (e.ctrlKey || e.metaKey) {
+                switch (e.key.toLowerCase()) {
+                    case 'a':
+                        e.preventDefault();
+                        toggleSelectAll();
+                        break;
+                    case 'd':
+                        e.preventDefault();
+                        deleteSelected();
+                        break;
+                    case 'e':
+                        e.preventDefault();
+                        toggleExpressionConfig();
+                        break;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
