@@ -19,6 +19,9 @@
     --accent-hover: #5568d3;
     --accent-light: #f0f4ff;
 
+    --button-primary: #667eea;
+    --button-primary-hover: #5568d3;
+
     --success: #10b981;
     --success-bg: #f0fdf4;
     --error: #ef4444;
@@ -53,6 +56,9 @@
     --accent-primary: #58a6ff;
     --accent-hover: #79c0ff;
     --accent-light: #1f6feb;
+
+    --button-primary: #1f6feb;
+    --button-primary-hover: #58a6ff;
 
     --success: #3fb950;
     --success-bg: #0d1117;

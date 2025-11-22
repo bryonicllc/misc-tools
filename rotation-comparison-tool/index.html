@@ -90,11 +90,11 @@
         }
 
         .buttons-group .add-btn {
-            background-color: var(--accent-light);
+            background-color: var(--button-primary);
         }
 
         .buttons-group .add-btn:hover {
-            background-color: var(--accent-primary);
+            background-color: var(--button-primary-hover);
         }
 
         .buttons-group .common-btn {
@@ -160,8 +160,8 @@
             margin-right: 10px;
         }
         
-        .add-btn { background-color: var(--accent-light); }
-        .add-btn:hover { background-color: var(--accent-primary); }
+        .add-btn { background-color: var(--button-primary); }
+        .add-btn:hover { background-color: var(--button-primary-hover); }
         .common-btn { background-color: var(--success); }
         .common-btn:hover { opacity: 0.9; }
         .remove-btn { background-color: var(--error); }
@@ -332,7 +332,7 @@
         }
         
         .generate-btn {
-            background-color: var(--accent-light);
+            background-color: var(--button-primary);
             color: white;
             border: none;
             padding: 3px 6px;
@@ -344,7 +344,7 @@
         }
 
         .generate-btn:hover {
-            background-color: var(--accent-primary);
+            background-color: var(--button-primary-hover);
         }
         
         .expression-output {
@@ -376,7 +376,7 @@
         .copy-btn {
             margin-top: 10px;
             padding: 8px 16px;
-            background-color: var(--accent-light);
+            background-color: var(--button-primary);
             color: white;
             border: none;
             border-radius: 4px;
@@ -384,7 +384,7 @@
         }
 
         .copy-btn:hover {
-            background-color: var(--accent-primary);
+            background-color: var(--button-primary-hover);
         }
         
         
@@ -659,12 +659,12 @@
         }
 
         /* SVG color classes */
-        svg .svg-border { stroke: var(--border-secondary); }
+        svg .svg-border { stroke: var(--text-tertiary); }
         svg .svg-text { fill: var(--text-primary); }
-        svg .svg-text-secondary { fill: var(--text-secondary); }
-        svg .svg-accent { fill: var(--accent-primary); stroke: var(--accent-primary); }
+        svg .svg-text-secondary { fill: var(--text-primary); }
+        svg .svg-accent { fill: var(--button-primary); stroke: var(--button-primary); }
         svg .svg-success { fill: var(--success); stroke: var(--success); }
-        svg .svg-arrow-bearing { fill: var(--accent-primary); }
+        svg .svg-arrow-bearing { fill: var(--button-primary); }
         svg .svg-arrow-theta { fill: var(--success); }
     </style>
 </head>
@@ -760,7 +760,7 @@
                     <div class="degree-display" id="degreeDisplay">0° Bearing</div>
                     <div class="degree-display" id="thetaDisplay" style="color: var(--success);">0° Theta</div>
                     <div class="instruction-text">Click & drag to rotate</div>
-                    <button onclick="addCurrentRotation()" style="padding: 4px 8px; font-size: 11px; background-color: var(--accent-light); color: white; border: none; border-radius: 3px; cursor: pointer;">Add This Angle</button>
+                    <button onclick="addCurrentRotation()" style="padding: 4px 8px; font-size: 11px; background-color: var(--button-primary); color: white; border: none; border-radius: 3px; cursor: pointer;">Add This Angle</button>
                 </div>
             </div>
             </div>
@@ -787,13 +787,13 @@
                             <polygon points="33.18,28.18 28.18,23.18 28.18,33.18" class="svg-success" transform="rotate(315 28.18 28.18)"/>
 
                             <!-- Cardinal directions -->
-                            <text x="60" y="12" text-anchor="middle" font-size="11" class="svg-text" font-weight="bold">N</text>
+                            <text x="60" y="12" text-anchor="middle" font-size="11" class="svg-text">N</text>
                             <text x="108" y="65" text-anchor="start" font-size="11" class="svg-text">E</text>
                             <text x="60" y="115" text-anchor="middle" font-size="11" class="svg-text">S</text>
                             <text x="12" y="65" text-anchor="end" font-size="11" class="svg-text">W</text>
 
                             <!-- Degree labels (offset from coordinates) -->
-                            <text x="75" y="12" text-anchor="middle" font-size="9" class="svg-accent" font-weight="bold">0°</text>
+                            <text x="75" y="12" text-anchor="middle" font-size="9" class="svg-accent">0°</text>
                             <text x="108" y="52" text-anchor="start" font-size="9" class="svg-text-secondary">90°</text>
                             <text x="45" y="115" text-anchor="middle" font-size="9" class="svg-text-secondary">180°</text>
                             <text x="12" y="52" text-anchor="end" font-size="9" class="svg-text-secondary">270°</text>
@@ -802,7 +802,7 @@
                             <line x1="60" y1="60" x2="60" y2="25" class="svg-accent" stroke-width="2" marker-end="url(#arrowhead-blue-small)"/>
 
                             <!-- Clockwise label -->
-                            <text x="60" y="85" text-anchor="middle" font-size="10" class="svg-success" font-weight="bold">Clockwise</text>
+                            <text x="60" y="85" text-anchor="middle" font-size="10" class="svg-success">Clockwise</text>
 
                             <!-- Arrow markers -->
                             <defs>
@@ -836,13 +836,13 @@
 
                             <!-- Cardinal directions -->
                             <text x="60" y="12" text-anchor="middle" font-size="11" class="svg-text">N</text>
-                            <text x="108" y="65" text-anchor="start" font-size="11" class="svg-text" font-weight="bold">E</text>
+                            <text x="108" y="65" text-anchor="start" font-size="11" class="svg-text">E</text>
                             <text x="60" y="115" text-anchor="middle" font-size="11" class="svg-text">S</text>
                             <text x="12" y="65" text-anchor="end" font-size="11" class="svg-text">W</text>
 
                             <!-- Degree labels (offset from coordinates) -->
                             <text x="75" y="12" text-anchor="middle" font-size="9" class="svg-text-secondary">90°</text>
-                            <text x="108" y="52" text-anchor="start" font-size="9" class="svg-success" font-weight="bold">0°</text>
+                            <text x="108" y="52" text-anchor="start" font-size="9" class="svg-success">0°</text>
                             <text x="45" y="115" text-anchor="middle" font-size="9" class="svg-text-secondary">270°</text>
                             <text x="12" y="52" text-anchor="end" font-size="9" class="svg-text-secondary">180°</text>
 
@@ -850,7 +850,7 @@
                             <line x1="60" y1="60" x2="95" y2="60" class="svg-success" stroke-width="2" marker-end="url(#arrowhead-green-small)"/>
 
                             <!-- Counter-clockwise label -->
-                            <text x="60" y="85" text-anchor="middle" font-size="10" class="svg-accent" font-weight="bold">Counter-Clockwise</text>
+                            <text x="60" y="85" text-anchor="middle" font-size="10" class="svg-accent">Counter-Clockwise</text>
 
                             <!-- Arrow markers -->
                             <defs>
