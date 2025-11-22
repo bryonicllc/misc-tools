@@ -869,7 +869,7 @@
 
         // Update UI based on cron expression
         function updateUI() {
-            const cronExpression = cronInput.value.trim();
+            let cronExpression = cronInput.value.trim();
 
             if (!cronExpression) {
                 cronInput.className = 'cron-input';
@@ -877,6 +877,20 @@
                 description.className = 'description';
                 schedulePreview.innerHTML = '<div class="loading">Enter a valid cron expression to see next executions...</div>';
                 return;
+            }
+
+            // Parse JSON format if provided
+            try {
+                const parsed = JSON.parse(cronExpression);
+                if (Array.isArray(parsed) && parsed.length > 0) {
+                    // Handle JSON array format: ["0 0 0 0 0 0"]
+                    cronExpression = parsed[0];
+                } else if (typeof parsed === 'string') {
+                    // Handle JSON string format: "0 0 0 0 0 0"
+                    cronExpression = parsed;
+                }
+            } catch (e) {
+                // Not JSON, use as plain string
             }
 
             try {
