@@ -42,13 +42,13 @@
             font-size: 2em;
             margin-bottom: 10px;
             font-weight: 700;
-            text-shadow: 0 0 20px rgba(88, 166, 255, 0.3);
+            text-shadow: 0 0 20px var(--accent-light);
         }
 
         .header p {
             opacity: 0.8;
             font-size: 1.1em;
-            color: #8b949e;
+            color: var(--text-secondary);
         }
 
         .content {
@@ -63,7 +63,7 @@
             font-size: 1.2em;
             font-weight: 600;
             margin-bottom: 15px;
-            color: #58a6ff;
+            color: var(--accent-primary);
             display: flex;
             align-items: center;
             gap: 8px;
@@ -79,9 +79,9 @@
         }
 
         .preset-btn {
-            background: #21262d;
-            border: 1px solid #30363d;
-            color: #8b949e;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-primary);
+            color: var(--text-secondary);
             padding: 10px 16px;
             border-radius: 6px;
             cursor: pointer;
@@ -92,10 +92,10 @@
         }
 
         .preset-btn:hover {
-            background: #30363d;
-            color: #58a6ff;
-            border-color: #58a6ff;
-            box-shadow: 0 0 10px rgba(88, 166, 255, 0.2);
+            background: var(--bg-hover);
+            color: var(--accent-primary);
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 10px var(--accent-light);
         }
 
         .cron-input-container {
@@ -107,48 +107,48 @@
             padding: 15px;
             font-size: 1.2em;
             font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-            background: #0d1117;
-            color: #c9d1d9;
-            border: 1px solid #30363d;
+            background: var(--bg-input);
+            color: var(--text-primary);
+            border: 1px solid var(--border-primary);
             border-radius: 8px;
             transition: all 0.2s;
         }
 
         .cron-input:focus {
             outline: none;
-            border-color: #58a6ff;
-            box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.1);
+            border-color: var(--border-focus);
+            box-shadow: 0 0 0 3px var(--accent-light);
         }
 
         .cron-input.valid {
-            border-color: #3fb950;
-            box-shadow: 0 0 10px rgba(63, 185, 80, 0.2);
+            border-color: var(--success);
+            box-shadow: 0 0 10px var(--success-bg);
         }
 
         .cron-input.invalid {
-            border-color: #f85149;
-            box-shadow: 0 0 10px rgba(248, 81, 73, 0.2);
+            border-color: var(--error);
+            box-shadow: 0 0 10px var(--error-bg);
         }
 
         .description {
             padding: 15px;
-            background: #21262d;
-            border: 1px solid #30363d;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-primary);
             border-radius: 8px;
             margin-top: 10px;
             font-size: 1.05em;
-            color: #8b949e;
+            color: var(--text-secondary);
         }
 
         .description.error {
-            background: #1a0f0f;
-            border-color: #f85149;
-            color: #f85149;
+            background: var(--error-bg);
+            border-color: var(--error);
+            color: var(--error);
         }
 
         .context-help {
-            background: #0d1117;
-            border: 1px solid #30363d;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-primary);
             border-radius: 8px;
             padding: 20px;
             margin-top: 15px;
@@ -164,7 +164,7 @@
 
         .indicator-label {
             font-size: 0.9em;
-            color: #58a6ff;
+            color: var(--accent-primary);
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -172,9 +172,9 @@
 
         .field-chip {
             padding: 8px 14px;
-            background: #21262d;
-            border: 1px solid #30363d;
-            color: #8b949e;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-primary);
+            color: var(--text-secondary);
             border-radius: 6px;
             font-size: 0.85em;
             font-weight: 500;
@@ -185,22 +185,22 @@
         }
 
         .field-chip:hover {
-            border-color: #58a6ff;
-            background: #30363d;
-            color: #58a6ff;
+            border-color: var(--accent-primary);
+            background: var(--bg-hover);
+            color: var(--accent-primary);
         }
 
         .field-chip.active {
-            background: #1f6feb;
-            color: #ffffff;
-            border-color: #58a6ff;
+            background: var(--accent-light);
+            color: var(--text-primary);
+            border-color: var(--accent-primary);
             font-weight: 600;
-            box-shadow: 0 0 15px rgba(88, 166, 255, 0.3);
+            box-shadow: 0 0 15px var(--accent-light);
         }
 
         .pattern-table {
-            background: #161b22;
-            border: 1px solid #30363d;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-primary);
             border-radius: 8px;
             overflow: hidden;
         }
@@ -211,28 +211,28 @@
         }
 
         .pattern-table th {
-            background: #21262d;
-            color: #58a6ff;
+            background: var(--bg-tertiary);
+            color: var(--accent-primary);
             padding: 12px;
             text-align: left;
             font-size: 0.9em;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1px;
-            border-bottom: 2px solid #30363d;
+            border-bottom: 2px solid var(--border-primary);
         }
 
         .pattern-table td {
             padding: 10px 12px;
-            border-bottom: 1px solid #30363d;
+            border-bottom: 1px solid var(--border-primary);
             font-size: 0.85em;
-            color: #8b949e;
+            color: var(--text-secondary);
         }
 
         .pattern-table td:first-child {
             font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
             font-weight: 600;
-            color: #3fb950;
+            color: var(--success);
             white-space: nowrap;
         }
 
@@ -241,27 +241,28 @@
         }
 
         .pattern-table tr:hover {
-            background: #21262d;
+            background: var(--bg-tertiary);
         }
 
         .field-tip {
-            background: #1c1813;
-            border: 1px solid #d29922;
+            background: var(--warning-bg);
+            border: 1px solid var(--warning);
             border-radius: 8px;
             padding: 12px 15px;
             margin-top: 12px;
             font-size: 0.85em;
             line-height: 1.5;
-            color: #d29922;
+            color: var(--warning);
         }
 
         .field-tip strong {
-            color: #ffd700;
+            color: var(--warning);
+            font-weight: 700;
         }
 
         .schedule-preview {
-            background: #0d1117;
-            border: 1px solid #30363d;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-primary);
             border-radius: 8px;
             padding: 20px;
             max-height: 400px;
@@ -270,10 +271,10 @@
 
         .schedule-item {
             padding: 12px;
-            background: #161b22;
+            background: var(--bg-primary);
             border-radius: 6px;
             margin-bottom: 8px;
-            border-left: 3px solid #58a6ff;
+            border-left: 3px solid var(--accent-primary);
             display: flex;
             align-items: center;
             gap: 10px;
@@ -281,13 +282,13 @@
         }
 
         .schedule-item:hover {
-            background: #21262d;
-            border-left-color: #3fb950;
+            background: var(--bg-tertiary);
+            border-left-color: var(--success);
         }
 
         .schedule-item-number {
-            background: #1f6feb;
-            color: white;
+            background: var(--accent-light);
+            color: var(--text-primary);
             width: 28px;
             height: 28px;
             border-radius: 4px;
@@ -303,13 +304,13 @@
             flex: 1;
             font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
             font-size: 0.95em;
-            color: #c9d1d9;
+            color: var(--text-primary);
         }
 
 
         .loading {
             text-align: center;
-            color: #8b949e;
+            color: var(--text-secondary);
             padding: 20px;
             font-style: italic;
         }
