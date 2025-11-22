@@ -138,12 +138,12 @@
         .form-row label {
             min-width: 80px;
             font-weight: bold;
-            color: #333;
+            color: var(--text-primary);
         }
-        
+
         .form-row input, .form-row select {
             padding: 8px 12px;
-            border: 1px solid #ddd;
+            border: 1px solid var(--border-primary);
             border-radius: 4px;
             font-size: 14px;
         }
@@ -158,12 +158,12 @@
             margin-right: 10px;
         }
         
-        .add-btn { background-color: #007acc; }
-        .add-btn:hover { background-color: #005a9e; }
-        .common-btn { background-color: #28a745; }
-        .common-btn:hover { background-color: #218838; }
-        .remove-btn { background-color: #dc3545; }
-        .remove-btn:hover { background-color: #c82333; }
+        .add-btn { background-color: var(--accent-primary); }
+        .add-btn:hover { background-color: var(--accent-hover); }
+        .common-btn { background-color: var(--success); }
+        .common-btn:hover { opacity: 0.9; }
+        .remove-btn { background-color: var(--error); }
+        .remove-btn:hover { opacity: 0.9; }
         
         .interactive-demo {
             display: flex;
@@ -171,16 +171,16 @@
             gap: 15px;
             margin-left: 20px;
             padding: 10px;
-            background-color: #f8f9fa;
-            border: 1px solid #dee2e6;
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border-primary);
             border-radius: 4px;
         }
         
         .interactive-text-box {
             width: 80px;
             height: 30px;
-            background-color: #ffeb3b;
-            border: 2px solid #fbc02d;
+            background-color: var(--warning-bg);
+            border: 2px solid var(--warning);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -204,12 +204,12 @@
         
         .degree-display {
             font-weight: bold;
-            color: #007acc;
+            color: var(--accent-primary);
             font-size: 14px;
         }
-        
+
         .instruction-text {
-            color: #666;
+            color: var(--text-secondary);
             font-style: italic;
         }
         
@@ -218,29 +218,29 @@
         }
         
         .example-item {
-            background-color: white;
+            background-color: var(--bg-primary);
             margin-bottom: 20px;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow-md);
             overflow: hidden;
         }
-        
+
         .example-header {
-            background-color: #f8f9fa;
+            background-color: var(--bg-tertiary);
             padding: 15px 20px 15px 50px;
-            border-bottom: 1px solid #dee2e6;
+            border-bottom: 1px solid var(--border-primary);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        
+
         .example-title {
             font-weight: bold;
-            color: #333;
+            color: var(--text-primary);
         }
-        
+
         .header-remove-btn {
-            background-color: #dc3545;
+            background-color: var(--error);
             color: white;
             border: none;
             padding: 4px 8px;
@@ -248,9 +248,9 @@
             cursor: pointer;
             font-size: 12px;
         }
-        
+
         .header-remove-btn:hover {
-            background-color: #c82333;
+            opacity: 0.9;
         }
         
         .container {
@@ -262,10 +262,10 @@
         .column {
             flex: 1;
             min-width: 120px;
-            background-color: #f8f9fa;
+            background-color: var(--bg-tertiary);
             padding: 15px;
             border-radius: 6px;
-            border: 1px solid #dee2e6;
+            border: 1px solid var(--border-primary);
         }
         
         /* Only wrap columns when screen gets narrow */
@@ -283,9 +283,9 @@
             text-align: center;
             margin-top: 0;
             margin-bottom: 15px;
-            color: #333;
+            color: var(--text-primary);
             font-size: 14px;
-            border-bottom: 2px solid #007acc;
+            border-bottom: 2px solid var(--accent-primary);
             padding-bottom: 8px;
         }
         
@@ -295,16 +295,16 @@
             justify-content: center;
             margin: 10px 0;
             padding: 8px;
-            background-color: white;
+            background-color: var(--bg-primary);
             border-radius: 4px;
-            border: 1px solid #dee2e6;
+            border: 1px solid var(--border-primary);
         }
-        
+
         .text-box {
             width: 80px;
             height: 25px;
-            background-color: #ffeb3b;
-            border: 2px solid #fbc02d;
+            background-color: var(--warning-bg);
+            border: 2px solid var(--warning);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -312,25 +312,25 @@
             font-size: 12px;
             transform-origin: center center;
         }
-        
+
         .compass {
             text-align: center;
             margin-bottom: 10px;
             font-size: 12px;
-            color: #666;
+            color: var(--text-secondary);
             font-style: italic;
         }
         
         .explanation {
-            background-color: #e3f2fd;
+            background-color: var(--bg-tertiary);
             padding: 15px;
             border-radius: 8px;
             margin-bottom: 20px;
-            border-left: 4px solid #2196f3;
+            border-left: 4px solid var(--accent-primary);
         }
         
         .generate-btn {
-            background-color: #17a2b8;
+            background-color: var(--accent-primary);
             color: white;
             border: none;
             padding: 3px 6px;
@@ -340,60 +340,60 @@
             margin-top: 5px;
             width: 100%;
         }
-        
+
         .generate-btn:hover {
-            background-color: #138496;
+            background-color: var(--accent-hover);
         }
         
         .expression-output {
-            background-color: white;
-            border: 1px solid #dee2e6;
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border-primary);
             border-radius: 4px;
             padding: 20px;
             margin-top: 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow-md);
         }
-        
+
         .expression-header {
             font-weight: bold;
             margin-bottom: 10px;
             font-family: Arial, sans-serif;
-            color: #333;
+            color: var(--text-primary);
         }
-        
+
         .expression-content {
-            background-color: #f8f9fa;
-            border: 1px solid #dee2e6;
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border-primary);
             border-radius: 4px;
             padding: 15px;
             font-family: monospace;
             white-space: pre-wrap;
             font-size: 12px;
         }
-        
+
         .copy-btn {
             margin-top: 10px;
             padding: 8px 16px;
-            background-color: #007acc;
+            background-color: var(--accent-primary);
             color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
         }
-        
+
         .copy-btn:hover {
-            background-color: #005a9e;
+            background-color: var(--accent-hover);
         }
         
         
         .input-invalid {
-            border-color: #dc3545 !important;
-            box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.25);
+            border-color: var(--error) !important;
+            box-shadow: 0 0 0 3px var(--error-bg);
         }
-        
+
         .input-valid {
-            border-color: #28a745 !important;
-            box-shadow: 0 0 0 2px rgba(40, 167, 69, 0.25);
+            border-color: var(--success) !important;
+            box-shadow: 0 0 0 3px var(--success-bg);
         }
         
         .validation-message {
@@ -416,8 +416,8 @@
             width: 20px;
             height: 20px;
             margin: -10px 0 0 -10px;
-            border: 2px solid #f3f3f3;
-            border-top: 2px solid #007acc;
+            border: 2px solid var(--border-primary);
+            border-top: 2px solid var(--accent-primary);
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
@@ -440,7 +440,7 @@
             width: 14px;
             height: 14px;
             margin: -7px 0 0 -7px;
-            border: 2px solid rgba(255,255,255,0.3);
+            border: 2px solid var(--border-primary);
             border-top: 2px solid white;
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
@@ -452,15 +452,15 @@
         }
         
         .validation-error {
-            color: #dc3545;
+            color: var(--error);
         }
-        
+
         .validation-success {
-            color: #28a745;
+            color: var(--success);
         }
-        
+
         .required {
-            color: #dc3545;
+            color: var(--error);
             font-weight: bold;
         }
         
@@ -470,13 +470,13 @@
             align-items: center;
             justify-content: space-between;
             margin-top: 0;
-            color: #333;
-            border-bottom: 2px solid #007acc;
+            color: var(--text-primary);
+            border-bottom: 2px solid var(--accent-primary);
             padding-bottom: 10px;
         }
-        
+
         .collapsible-header:hover {
-            color: #007acc;
+            color: var(--accent-primary);
         }
         
         .collapse-icon {
@@ -514,11 +514,11 @@
         }
         
         .batch-controls {
-            background-color: #f8f9fa;
+            background-color: var(--bg-tertiary);
             padding: 10px;
             border-radius: 6px;
             margin-bottom: 15px;
-            border: 1px solid #dee2e6;
+            border: 1px solid var(--border-primary);
             display: none;
         }
         
@@ -538,8 +538,8 @@
         }
         
         .example-item.selected {
-            border: 2px solid #007acc;
-            box-shadow: 0 0 8px rgba(0, 122, 204, 0.3);
+            border: 2px solid var(--accent-primary);
+            box-shadow: 0 0 8px var(--accent-light);
         }
         
         .select-all-container {
@@ -565,12 +565,12 @@
         }
         
         .batch-delete {
-            background-color: #dc3545;
+            background-color: var(--error);
             color: white;
         }
-        
+
         .batch-delete:hover {
-            background-color: #c82333;
+            opacity: 0.9;
         }
         
         .toast {
@@ -579,7 +579,7 @@
             right: 20px;
             padding: 12px 16px;
             border-radius: 6px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            box-shadow: var(--shadow-md);
             z-index: 1000;
             font-size: 14px;
             font-weight: 500;
@@ -593,35 +593,35 @@
         }
         
         .toast.success {
-            background-color: #d4edda;
-            color: #155724;
-            border-left: 4px solid #28a745;
+            background-color: var(--success-bg);
+            color: var(--success);
+            border-left: 4px solid var(--success);
         }
-        
+
         .toast.error {
-            background-color: #f8d7da;
-            color: #721c24;
-            border-left: 4px solid #dc3545;
+            background-color: var(--error-bg);
+            color: var(--error);
+            border-left: 4px solid var(--error);
         }
-        
+
         .toast.info {
-            background-color: #d1ecf1;
-            color: #0c5460;
-            border-left: 4px solid #17a2b8;
+            background-color: var(--bg-tertiary);
+            color: var(--accent-primary);
+            border-left: 4px solid var(--accent-primary);
         }
         
         .coordinate-explanation {
-            background-color: #f8f9fa;
+            background-color: var(--bg-tertiary);
             padding: 20px;
             border-radius: 8px;
-            border: 1px solid #dee2e6;
+            border: 1px solid var(--border-primary);
         }
-        
+
         .coordinate-explanation h3 {
             margin-top: 0;
-            color: #333;
+            color: var(--text-primary);
             font-size: 16px;
-            border-bottom: 1px solid #dee2e6;
+            border-bottom: 1px solid var(--border-primary);
             padding-bottom: 8px;
             margin-bottom: 15px;
         }
@@ -641,25 +641,34 @@
         .coordinate-system h4 {
             margin: 0 0 8px 0;
             font-size: 14px;
-            color: #007acc;
+            color: var(--accent-primary);
         }
-        
+
         .coordinate-diagram {
             display: flex;
             justify-content: center;
             margin: 10px 0;
         }
-        
+
         .system-description {
             font-size: 12px;
-            color: #666;
+            color: var(--text-secondary);
             line-height: 1.4;
         }
+
+        /* SVG color classes */
+        svg .svg-border { stroke: var(--border-secondary); }
+        svg .svg-text { fill: var(--text-primary); }
+        svg .svg-text-secondary { fill: var(--text-secondary); }
+        svg .svg-accent { fill: var(--accent-primary); stroke: var(--accent-primary); }
+        svg .svg-success { fill: var(--success); stroke: var(--success); }
+        svg .svg-arrow-bearing { fill: var(--accent-primary); }
+        svg .svg-arrow-theta { fill: var(--success); }
     </style>
 </head>
 <body>
-    <h1 style="text-align: center; color: #333;">Dynamic Rotation Comparison Tool 
-        <span style="font-size: 14px; color: #666; cursor: help;" title="Keyboard shortcuts:&#10;Enter: Add example (in input fields)&#10;Ctrl+A: Select all examples&#10;Ctrl+D: Delete selected&#10;Ctrl+E: Toggle expression info">⌨️</span>
+    <h1 style="text-align: center; color: var(--text-primary);">Dynamic Rotation Comparison Tool
+        <span style="font-size: 14px; color: var(--text-secondary); cursor: help;" title="Keyboard shortcuts:&#10;Enter: Add example (in input fields)&#10;Ctrl+A: Select all examples&#10;Ctrl+D: Delete selected&#10;Ctrl+E: Toggle expression info">⌨️</span>
     </h1>
     
     <div class="explanation">
@@ -709,7 +718,7 @@
     </div>
     
     <div class="form-section">
-        <h2 style="margin-top: 0; color: #333; border-bottom: 2px solid #007acc; padding-bottom: 10px;">Add Rotation Angles</h2>
+        <h2 style="margin-top: 0; color: var(--text-primary); border-bottom: 2px solid var(--accent-primary); padding-bottom: 10px;">Add Rotation Angles</h2>
         <div class="main-content-layout">
             <div class="input-section">
                 <div class="input-group">
@@ -740,16 +749,16 @@
             </div>
             
             <div class="demo-section">
-                <h3 style="margin: 0 0 15px 0; color: #333;"><strong>Interactive Demo</strong></h3>
+                <h3 style="margin: 0 0 15px 0; color: var(--text-primary);"><strong>Interactive Demo</strong></h3>
                 <div class="interactive-demo">
                 <div class="interactive-text-box" id="interactiveBox" onmousedown="startDrag(event)">
                     BRW
                 </div>
                 <div class="interactive-info">
                     <div class="degree-display" id="degreeDisplay">0° Bearing</div>
-                    <div class="degree-display" id="thetaDisplay" style="color: #28a745;">0° Theta</div>
+                    <div class="degree-display" id="thetaDisplay" style="color: var(--success);">0° Theta</div>
                     <div class="instruction-text">Click & drag to rotate</div>
-                    <button onclick="addCurrentRotation()" style="padding: 4px 8px; font-size: 11px; background-color: #007acc; color: white; border: none; border-radius: 3px; cursor: pointer;">Add This Angle</button>
+                    <button onclick="addCurrentRotation()" style="padding: 4px 8px; font-size: 11px; background-color: var(--accent-primary); color: white; border: none; border-radius: 3px; cursor: pointer;">Add This Angle</button>
                 </div>
             </div>
             </div>
@@ -763,40 +772,40 @@
                     <div class="coordinate-diagram">
                         <svg width="120" height="120" viewBox="0 0 120 120">
                             <!-- Circle -->
-                            <circle cx="60" cy="60" r="45" fill="none" stroke="#ddd" stroke-width="1"/>
-                            
+                            <circle cx="60" cy="60" r="45" fill="none" class="svg-border" stroke-width="1"/>
+
                             <!-- Clockwise rotation arrows positioned on circle -->
                             <!-- Triangle at NE (91.82, 28.18) rotated 45° -->
-                            <polygon points="96.82,28.18 91.82,23.18 91.82,33.18" fill="#28a745" transform="rotate(45 91.82 28.18)"/>
+                            <polygon points="96.82,28.18 91.82,23.18 91.82,33.18" class="svg-success" transform="rotate(45 91.82 28.18)"/>
                             <!-- Triangle at SE (91.82, 91.82) rotated 135° -->
-                            <polygon points="96.82,91.82 91.82,86.82 91.82,96.82" fill="#28a745" transform="rotate(135 91.82 91.82)"/>
+                            <polygon points="96.82,91.82 91.82,86.82 91.82,96.82" class="svg-success" transform="rotate(135 91.82 91.82)"/>
                             <!-- Triangle at SW (28.18, 91.82) rotated 225° -->
-                            <polygon points="33.18,91.82 28.18,86.82 28.18,96.82" fill="#28a745" transform="rotate(225 28.18 91.82)"/>
+                            <polygon points="33.18,91.82 28.18,86.82 28.18,96.82" class="svg-success" transform="rotate(225 28.18 91.82)"/>
                             <!-- Triangle at NW (28.18, 28.18) rotated 315° -->
-                            <polygon points="33.18,28.18 28.18,23.18 28.18,33.18" fill="#28a745" transform="rotate(315 28.18 28.18)"/>
-                            
+                            <polygon points="33.18,28.18 28.18,23.18 28.18,33.18" class="svg-success" transform="rotate(315 28.18 28.18)"/>
+
                             <!-- Cardinal directions -->
-                            <text x="60" y="12" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">N</text>
-                            <text x="108" y="65" text-anchor="start" font-size="11" fill="#333">E</text>
-                            <text x="60" y="115" text-anchor="middle" font-size="11" fill="#333">S</text>
-                            <text x="12" y="65" text-anchor="end" font-size="11" fill="#333">W</text>
-                            
+                            <text x="60" y="12" text-anchor="middle" font-size="11" class="svg-text" font-weight="bold">N</text>
+                            <text x="108" y="65" text-anchor="start" font-size="11" class="svg-text">E</text>
+                            <text x="60" y="115" text-anchor="middle" font-size="11" class="svg-text">S</text>
+                            <text x="12" y="65" text-anchor="end" font-size="11" class="svg-text">W</text>
+
                             <!-- Degree labels (offset from coordinates) -->
-                            <text x="75" y="12" text-anchor="middle" font-size="9" fill="#007acc" font-weight="bold">0°</text>
-                            <text x="108" y="52" text-anchor="start" font-size="9" fill="#666">90°</text>
-                            <text x="45" y="115" text-anchor="middle" font-size="9" fill="#666">180°</text>
-                            <text x="12" y="52" text-anchor="end" font-size="9" fill="#666">270°</text>
-                            
+                            <text x="75" y="12" text-anchor="middle" font-size="9" class="svg-accent" font-weight="bold">0°</text>
+                            <text x="108" y="52" text-anchor="start" font-size="9" class="svg-text-secondary">90°</text>
+                            <text x="45" y="115" text-anchor="middle" font-size="9" class="svg-text-secondary">180°</text>
+                            <text x="12" y="52" text-anchor="end" font-size="9" class="svg-text-secondary">270°</text>
+
                             <!-- North reference arrow -->
-                            <line x1="60" y1="60" x2="60" y2="25" stroke="#007acc" stroke-width="2" marker-end="url(#arrowhead-blue-small)"/>
-                            
+                            <line x1="60" y1="60" x2="60" y2="25" class="svg-accent" stroke-width="2" marker-end="url(#arrowhead-blue-small)"/>
+
                             <!-- Clockwise label -->
-                            <text x="60" y="85" text-anchor="middle" font-size="10" fill="#28a745" font-weight="bold">Clockwise</text>
-                            
+                            <text x="60" y="85" text-anchor="middle" font-size="10" class="svg-success" font-weight="bold">Clockwise</text>
+
                             <!-- Arrow markers -->
                             <defs>
                                 <marker id="arrowhead-blue-small" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto">
-                                    <polygon points="0 0, 6 2, 0 4" fill="#007acc"/>
+                                    <polygon points="0 0, 6 2, 0 4" class="svg-arrow-bearing"/>
                                 </marker>
                             </defs>
                         </svg>
@@ -811,40 +820,40 @@
                     <div class="coordinate-diagram">
                         <svg width="120" height="120" viewBox="0 0 120 120">
                             <!-- Circle -->
-                            <circle cx="60" cy="60" r="45" fill="none" stroke="#ddd" stroke-width="1"/>
-                            
+                            <circle cx="60" cy="60" r="45" fill="none" class="svg-border" stroke-width="1"/>
+
                             <!-- Counter-clockwise rotation arrows positioned on circle -->
                             <!-- Triangle at NE (91.82, 28.18) rotated 45° + 180° = 225° -->
-                            <polygon points="96.82,28.18 91.82,23.18 91.82,33.18" fill="#007acc" transform="rotate(225 91.82 28.18)"/>
+                            <polygon points="96.82,28.18 91.82,23.18 91.82,33.18" class="svg-accent" transform="rotate(225 91.82 28.18)"/>
                             <!-- Triangle at SE (91.82, 91.82) rotated 135° + 180° = 315° -->
-                            <polygon points="96.82,91.82 91.82,86.82 91.82,96.82" fill="#007acc" transform="rotate(315 91.82 91.82)"/>
+                            <polygon points="96.82,91.82 91.82,86.82 91.82,96.82" class="svg-accent" transform="rotate(315 91.82 91.82)"/>
                             <!-- Triangle at SW (28.18, 91.82) rotated 225° + 180° = 45° -->
-                            <polygon points="33.18,91.82 28.18,86.82 28.18,96.82" fill="#007acc" transform="rotate(45 28.18 91.82)"/>
+                            <polygon points="33.18,91.82 28.18,86.82 28.18,96.82" class="svg-accent" transform="rotate(45 28.18 91.82)"/>
                             <!-- Triangle at NW (28.18, 28.18) rotated 315° + 180° = 135° -->
-                            <polygon points="33.18,28.18 28.18,23.18 28.18,33.18" fill="#007acc" transform="rotate(135 28.18 28.18)"/>
-                            
+                            <polygon points="33.18,28.18 28.18,23.18 28.18,33.18" class="svg-accent" transform="rotate(135 28.18 28.18)"/>
+
                             <!-- Cardinal directions -->
-                            <text x="60" y="12" text-anchor="middle" font-size="11" fill="#333">N</text>
-                            <text x="108" y="65" text-anchor="start" font-size="11" fill="#333" font-weight="bold">E</text>
-                            <text x="60" y="115" text-anchor="middle" font-size="11" fill="#333">S</text>
-                            <text x="12" y="65" text-anchor="end" font-size="11" fill="#333">W</text>
-                            
+                            <text x="60" y="12" text-anchor="middle" font-size="11" class="svg-text">N</text>
+                            <text x="108" y="65" text-anchor="start" font-size="11" class="svg-text" font-weight="bold">E</text>
+                            <text x="60" y="115" text-anchor="middle" font-size="11" class="svg-text">S</text>
+                            <text x="12" y="65" text-anchor="end" font-size="11" class="svg-text">W</text>
+
                             <!-- Degree labels (offset from coordinates) -->
-                            <text x="75" y="12" text-anchor="middle" font-size="9" fill="#666">90°</text>
-                            <text x="108" y="52" text-anchor="start" font-size="9" fill="#28a745" font-weight="bold">0°</text>
-                            <text x="45" y="115" text-anchor="middle" font-size="9" fill="#666">270°</text>
-                            <text x="12" y="52" text-anchor="end" font-size="9" fill="#666">180°</text>
-                            
+                            <text x="75" y="12" text-anchor="middle" font-size="9" class="svg-text-secondary">90°</text>
+                            <text x="108" y="52" text-anchor="start" font-size="9" class="svg-success" font-weight="bold">0°</text>
+                            <text x="45" y="115" text-anchor="middle" font-size="9" class="svg-text-secondary">270°</text>
+                            <text x="12" y="52" text-anchor="end" font-size="9" class="svg-text-secondary">180°</text>
+
                             <!-- East reference arrow -->
-                            <line x1="60" y1="60" x2="95" y2="60" stroke="#28a745" stroke-width="2" marker-end="url(#arrowhead-green-small)"/>
-                            
+                            <line x1="60" y1="60" x2="95" y2="60" class="svg-success" stroke-width="2" marker-end="url(#arrowhead-green-small)"/>
+
                             <!-- Counter-clockwise label -->
-                            <text x="60" y="85" text-anchor="middle" font-size="10" fill="#007acc" font-weight="bold">Counter-Clockwise</text>
-                            
+                            <text x="60" y="85" text-anchor="middle" font-size="10" class="svg-accent" font-weight="bold">Counter-Clockwise</text>
+
                             <!-- Arrow markers -->
                             <defs>
                                 <marker id="arrowhead-green-small" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto">
-                                    <polygon points="0 0, 6 2, 0 4" fill="#28a745"/>
+                                    <polygon points="0 0, 6 2, 0 4" class="svg-arrow-theta"/>
                                 </marker>
                             </defs>
                         </svg>
@@ -868,7 +877,7 @@
         </div>
         <div class="batch-actions">
             <button class="batch-btn batch-delete" onclick="deleteSelected()">Delete Selected</button>
-            <button class="batch-btn" onclick="clearSelection()" style="background-color: #6c757d; color: white;">Clear Selection</button>
+            <button class="batch-btn" onclick="clearSelection()" style="background-color: var(--text-secondary); color: white;">Clear Selection</button>
         </div>
     </div>
     
@@ -1172,7 +1181,7 @@
                 return `
                     <div class="column">
                         <h3>${formatDegreeWithNegative(rotAngle)} Bearing</h3>
-                        <h3 style="color: #28a745; margin-top: 5px;">${formatDegreeWithNegative(thetaAngle)} Theta</h3>
+                        <h3 style="color: var(--success); margin-top: 5px;">${formatDegreeWithNegative(thetaAngle)} Theta</h3>
                         <div class="compass">${offset === 0 ? 'Raw input' : '+' + offset + '° offset'}</div>
                         <div class="rotation-demo">
                             <div class="text-box" style="transform: rotate(${rotAngle}deg);">${text}</div>
